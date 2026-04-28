@@ -1,0 +1,43 @@
+name: consultant
+description: Independent consultant — strategy, deliverables, multi-engagement.
+
+triggers:
+  use_case: consultant
+  typical_languages: [pt-br, en]
+
+squads_to_install:
+  - c-level/ceo
+  - c-level/cmo
+  - c-level/cto
+  - pools/copy-project
+  - pools/content-production
+  - pools/brand-narrative
+  - pools/storytelling-pool
+  - internal/cyber-security  # for compliance reviews
+
+skills_to_activate:
+  - marketing-expert
+  - humanizer
+  - template-designer
+  - canva
+  - resend
+  - workspace-state
+  - openclaw-skills-self-improving-agent
+
+best_practices_to_load:
+  - strategist
+  - copywriting
+  - technical-writing
+  - data-analysis
+  - researching
+  - review
+
+starter_prompts_pt_br:
+  - 'Crie uma proposta executiva para um cliente do setor X (5 páginas).'
+  - 'Estruture um diagnóstico estratégico de 90 dias para o lead Y.'
+  - 'Compile uma análise SWOT da concorrência do cliente Z.'
+
+starter_prompts_en:
+  - "Draft an executive proposal for a client in industry X (5 pages)."
+  - "Structure a 90-day strategic diagnostic for lead Y."
+  - "Compile a competitive SWOT analysis for client Z."

@@ -1,0 +1,94 @@
+id: "brand-creation-pipeline"
+name: "Criação de Marca"
+description: "Workflow completo de criação de marca de ponta a ponta. Da pesquisa de mercado ao posicionamento, naming, design de identidade e development de brand story."
+trigger: "*brand-creation"
+estimated_duration: "60-120 min"
+type: sequential
+
+phases:
+  - id: phase_0_archetype
+    name: "Research & Archetype"
+    agent: archetype-consultant
+    action: map-archetype
+    description: "Evaluate all 12 archetypes against the brand's values, audience, and competitive landscape. Select primary and secondary archetypes."
+    checkpoint:
+      gate: "Primary archetype selected with expression guide"
+      veto: "Archetype conflicts with stated brand values or audience aspirations"
+    outputs:
+      - archetype_profile
+      - brand_expression_guide
+
+  - id: phase_1_positioning
+    name: "Positioning"
+    agent: al-ries
+    action: create-positioning
+    depends_on: [phase_0_archetype]
+    description: "Define the brand's position in the market. Analyze the category, identify white space, create positioning statement and tagline."
+    checkpoint:
+      gate: "Positioning is relevant, differentiated, and credible"
+      veto: "Position already owned by a dominant competitor"
+    outputs:
+      - positioning_strategy
+      - positioning_statement
+      - tagline
+
+  - id: phase_2_naming
+    name: "Naming"
+    agent: naming-strategist
+    action: generate-names
+    depends_on: [phase_1_positioning]
+    description: "Generate and evaluate naming candidates based on positioning. 30+ candidates, score on 7 criteria, recommend top 5."
+    checkpoint:
+      gate: "Minimum 3 viable finalists with scores and rationale"
+      veto: "All finalists have trademark or domain conflicts"
+    outputs:
+      - naming_candidates
+      - top_finalists
+
+  - id: phase_3_identity
+    name: "Visual & Verbal Identity"
+    agent: alina-wheeler
+    action: build-identity
+    depends_on: [phase_0_archetype, phase_1_positioning, phase_2_naming]
+    description: "Design the complete identity system — visual (colors, typography, logo direction, photography) and verbal (voice, key messaging)."
+    checkpoint:
+      gate: "Identity system complete with visual, verbal, and governance"
+      veto: "Identity contradicts the positioning or archetype"
+    outputs:
+      - identity_system
+      - brand_guidelines
+
+  - id: phase_4_brand_story
+    name: "Brand Story"
+    agent: donald-miller
+    action: create-brand-story
+    depends_on: [phase_1_positioning, phase_3_identity]
+    description: "Build the brand narrative using StoryBrand SB7. Create the BrandScript, one-liner, website wireframe copy."
+    checkpoint:
+      gate: "BrandScript complete with all 7 elements and applied to touchpoints"
+      veto: "Brand positioned as hero instead of guide"
+    outputs:
+      - brandscript
+      - one_liner
+      - website_copy
+
+  - id: phase_5_launch_package
+    name: "Brand Launch Package"
+    agent: brand-chief
+    action: review
+    depends_on: [phase_3_identity, phase_4_brand_story]
+    description: "Compile all deliverables into the final brand launch package. Review consistency across archetype, positioning, identity, and story."
+    checkpoint:
+      gate: "All brand elements consistent and launch-ready"
+      veto: "Inconsistencies between positioning, identity, and story"
+    outputs:
+      - brand_package
+      - implementation_roadmap
+
+completion_criteria:
+  - "Brand archetype defined with expression guide"
+  - "Positioning strategy complete with tagline"
+  - "Brand name selected from evaluated candidates"
+  - "Identity system designed (visual + verbal)"
+  - "Brand story written with StoryBrand SB7"
+  - "Launch package compiled with implementation roadmap"

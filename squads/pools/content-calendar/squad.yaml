@@ -1,0 +1,14 @@
+id: "squads/content-calendar"
+name: "Content Calendar Squad"
+description: "Pipeline de planejamento editorial mensal. Gera calendário de conteúdo completo com pilares, formatos, plataformas e cronograma."
+
+leader: "content-chief"
+pool: "../content-factory-pool/agents"
+
+members:
+  content-chief:
+    role: "Briefing & Aprovação Final"
+  format-strategist:
+    role: "Pesquisa de Tendências & Formatos"
+  calendar-planner:
+    role: "Construção do Calendário Editorial"

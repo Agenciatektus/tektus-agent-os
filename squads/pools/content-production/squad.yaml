@@ -1,0 +1,23 @@
+id: "squads/content-production"
+name: "Content Production Squad"
+description: "Pipeline de produção de conteúdo individual. Produz uma peça do briefing ao asset final (imagem ou vídeo) pronto para publicação."
+
+leader: "content-chief"
+pool: "../content-factory-pool/agents"
+
+members:
+  content-chief:
+    role: "Briefing & Quality Review"
+  content-writer:
+    role: "Copy, Legendas & Roteiros"
+  visual-producer:
+    role: "Criação de Assets Visuais"
+  video-editor:
+    role: "Edição de Vídeo (quando aplicável)"
+  format-strategist:
+    role: "Spec de Formato & Dimensões"
+
+# Cross-squad (on-call):
+# copy-squad-pool → para copy pesada (VSL, email, sales)
+# storytelling-pool → para narrativas longas
+# design-squad-pool → para design systems complexos

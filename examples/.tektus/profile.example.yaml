@@ -1,0 +1,83 @@
+# =============================================================================
+# .tektus/profile.yaml — Exemplo de perfil de projeto
+# =============================================================================
+# Este arquivo é gerado pela skill `tektus-onboarding` na primeira mensagem
+# de um projeto novo. Salve em `.tektus/profile.yaml` na raiz do repo (git-ignored).
+#
+# Agentes leem este arquivo no início de toda sessão pra adaptar:
+#  - idioma de resposta
+#  - skills/squads default
+#  - chains automáticas (ex.: humanizer no passe final pra PT-BR)
+#  - tom e formato de output
+# =============================================================================
+
+profile:
+  version: 1
+  created_at: 2026-04-26
+  updated_at: 2026-04-26
+
+# Quem é o usuário (informa adaptação de tom + assumptions de conhecimento)
+user:
+  role: solo-founder              # solo-founder | engineer | designer | marketer | agency-owner | student
+  name: <YOUR_NAME>
+  experience:
+    coding: intermediate          # beginner | intermediate | advanced | expert
+    devops: intermediate
+    marketing: advanced
+  primary_communication: portuguese-brazilian   # english | portuguese-brazilian | spanish | etc.
+
+# Como o projeto deve ser tratado
+project:
+  type: agency                    # agency | saas | personal | client-work | open-source
+  domain: digital-marketing       # ex: digital-marketing, fintech, healthcare, e-commerce
+  stage: production               # idea | mvp | beta | production | mature
+  priority_axis: revenue          # speed | quality | revenue | learning
+
+# Stack (informa quais skills/best-practices ativar default)
+stack:
+  primary_language: typescript    # typescript | python | go | rust | etc.
+  frontend: react                 # react | vue | svelte | none
+  backend: supabase               # supabase | rails | django | nestjs | etc.
+  database: postgres
+  hosting: coolify                # vercel | coolify | aws | etc.
+  cms: wordpress                  # wordpress | strapi | sanity | none
+  payment: stripe                 # stripe | mercadopago | none
+
+# Squads e pools que devem ser preferencialmente invocados
+defaults:
+  squads:
+    - copy-squad-pool
+    - brand-pool
+    - cyber-security
+  always_chain:
+    # Chains são skills aplicadas automaticamente em determinado contexto
+    - context: pt-br-final-pass
+      skill: humanizer
+      reason: Texto em PT-BR sempre passa pela skill humanizer no fim
+    - context: ui-design
+      skill: ui-ux-pro-max
+      reason: UI tasks sempre invocam ui-ux-pro-max + MCP 21st
+    - context: code-or-infra
+      squad: cyber-security
+      reason: Código/infra sempre passam pela Blue Team
+
+# Comunicação
+communication:
+  language: pt-br
+  tone: direct                    # direct | warm | technical | casual
+  emoji_use: low                  # none | low | medium | high
+  verbosity: concise              # terse | concise | normal | detailed
+  prefers_questions_first: true   # true = agente pergunta antes de assumir
+
+# Privacidade / segurança
+security:
+  redact_credentials_in_output: true
+  no_screenshots_with_secrets: true
+  vault_provider: vaultwarden     # vaultwarden | 1password | bitwarden-cloud | none
+  share_logs_with_agents: minimal # full | task-relevant | minimal
+
+# Custos
+budget:
+  monthly_ai_budget_usd: 200
+  preferred_model_tier: balanced  # economy | balanced | quality
+  alert_on_unusual_spend: true

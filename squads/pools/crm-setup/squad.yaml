@@ -1,0 +1,41 @@
+squad:
+  id: crm-setup
+  name: "CRM Setup Squad"
+  version: "1.0.0"
+  description: |
+    Squad responsável pela configuração completa de CRM para novos clientes.
+    Entrega pipeline estruturado, automações e kit de scripts de vendas.
+  pool: salesops-pool
+  tracking_native: true
+
+members:
+  - role: orchestrator
+    agent: head-comercial
+    responsibilities:
+      - "Ler contexto do cliente na VerDash"
+      - "Consolidar briefing para especialistas"
+      - "Criar tarefas de implementação no CRM VerDash ao final"
+
+  - role: diagnostician
+    agent: hormozi-chief
+    responsibilities:
+      - "Diagnosticar gargalo principal do processo comercial"
+      - "Definir prioridade de ações de setup"
+
+  - role: specialist
+    agent: hormozi-offers
+    responsibilities:
+      - "Validar e refinar a proposta de valor pela Value Equation"
+      - "Identificar diferenciais para usar nos scripts"
+
+  - role: specialist
+    agent: hormozi-crm
+    responsibilities:
+      - "Estruturar pipeline com etapas, campos, etiquetas"
+      - "Projetar automações de follow-up"
+
+  - role: specialist
+    agent: hormozi-closer
+    responsibilities:
+      - "Criar scripts de primeiro contato, follow-up, objeções e fechamento"
+      - "Calibrar scripts para o ICP específico do cliente"

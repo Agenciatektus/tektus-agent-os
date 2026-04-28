@@ -1,0 +1,18 @@
+id: "squads/brand-rebrand"
+name: "Rebrand Squad"
+description: "Pipeline de rebranding para marcas existentes. Auditoria, revisão de posicionamento, atualização de identidade e refresh do messaging."
+
+leader: "brand-chief"
+pool: "../brand-pool/agents"
+
+members:
+  brand-chief:
+    role: "Orchestrator & Review Final"
+  david-aaker:
+    role: "Fase 0 — Auditoria de Marca (Equity Model)"
+  al-ries:
+    role: "Fase 1 — Revisão de Posicionamento"
+  alina-wheeler:
+    role: "Fase 2 — Update de Identidade"
+  donald-miller:
+    role: "Fase 3 — Refresh de Messaging"

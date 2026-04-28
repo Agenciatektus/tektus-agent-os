@@ -1,0 +1,151 @@
+workflow:
+  id: crm-setup
+  name: "Setup Completo de CRM"
+  version: "1.0.0"
+  trigger: "*crm-setup"
+  entry_agent: head-comercial
+  squad: salesops
+  estimated_duration: "2-4 horas"
+  type: sequential
+  description: |
+    Pipeline de setup completo de CRM para um novo cliente da Tektus.
+    O Head Comercial lê o contexto do cliente na VerDash e passa os dados
+    para cada especialista. O resultado final é um CRM configurado, com
+    scripts de abordagem prontos, e as tarefas de implementação criadas no VerDash.
+
+inputs:
+  - name: cliente_id
+    required: true
+    description: "ID do cliente na VerDash"
+  - name: segmento
+    required: true
+    description: "Segmento/nicho do negócio do cliente"
+  - name: canal_principal
+    required: false
+    description: "Canal principal de captação atual (Meta, Google, WhatsApp, etc.)"
+  - name: crm_atual
+    required: false
+    description: "CRM que o cliente já usa (Kommo, RD Station, planilha, nenhum)"
+
+phases:
+  - id: phase_1_briefing
+    name: "Briefing & Contexto"
+    agent: head-comercial
+    depends_on: []
+    description: |
+      Head Comercial lê toda a documentação do cliente na VerDash:
+      ICP, plano contratado, serviços em escopo, jornada comercial.
+      Consolida um briefing completo para os especialistas.
+    outputs:
+      - briefing_cliente: "markdown"
+      - icp_summary: "string"
+      - escopo_servicos: "list"
+    checkpoint:
+      gate: "Briefing completo: ICP, plano, canais ativos e dores identificadas"
+      veto: "head-comercial rejeita se não há informações suficientes do cliente"
+      required_output: "Briefing consolidado do cliente com contexto para especialistas"
+
+  - id: phase_2_diagnostico
+    name: "Diagnóstico do Negócio"
+    agent: hormozi-chief
+    depends_on: [phase_1_briefing]
+    description: |
+      Hormozi Chief recebe o briefing e diagnostica qual é o gargalo principal
+      do processo comercial do cliente. Define prioridade: leads? oferta? CRM? scripts?
+    outputs:
+      - diagnostico_comercial: "markdown"
+      - gargalo_principal: "string"
+      - prioridade_setup: "list"
+    checkpoint:
+      gate: "Diagnóstico identifica o gargalo principal e prioriza as ações de setup"
+      veto: "head-comercial rejeita se diagnóstico é genérico sem especificidade para o cliente"
+      required_output: "Diagnóstico com gargalo principal e prioridade de ações"
+
+  - id: phase_3_oferta
+    name: "Validação e Refinamento da Oferta"
+    agent: hormozi-offers
+    depends_on: [phase_2_diagnostico]
+    description: |
+      Hormozi Offers analisa a oferta atual do cliente pela Value Equation.
+      Identifica pontos de diferenciação e sugere refinamentos para aumentar
+      a proposta de valor que vai entrar no CRM e nos scripts.
+    outputs:
+      - analise_oferta: "markdown"
+      - proposta_valor_refinada: "string"
+      - diferenciais_chave: "list"
+    checkpoint:
+      gate: "Value Equation aplicada, proposta de valor clara e específica para o ICP"
+      veto: "head-comercial rejeita se oferta ainda é commodity sem diferenciação"
+      required_output: "Proposta de valor refinada para usar nos scripts de abordagem"
+
+  - id: phase_4_pipeline
+    name: "Configuração do Pipeline CRM"
+    agent: hormozi-crm
+    depends_on: [phase_2_diagnostico, phase_3_oferta]
+    description: |
+      Hormozi CRM estrutura o pipeline completo baseado na jornada do cliente.
+      Define etapas, campos obrigatórios, etiquetas de origem, e sequência de
+      automações de follow-up. Calibrado para o Kommo CRM da Tektus.
+    outputs:
+      - estrutura_pipeline: "markdown"
+      - etapas_funil: "list"
+      - campos_obrigatorios: "list"
+      - etiquetas: "list"
+      - automacoes_followup: "markdown"
+    checkpoint:
+      gate: "Pipeline com mínimo 6 etapas, campos de qualificação e pelo menos 5 automações de follow-up"
+      veto: "head-comercial rejeita se pipeline não reflete a jornada real do lead do cliente"
+      required_output: "Estrutura completa do pipeline pronta para implementação no Kommo"
+
+  - id: phase_5_scripts
+    name: "Scripts de Abordagem e Fechamento"
+    agent: hormozi-closer
+    depends_on: [phase_3_oferta, phase_4_pipeline]
+    description: |
+      Hormozi Closer cria os scripts de vendas adaptados para o ICP e a oferta
+      do cliente. Inclui: script de primeiro contato no WhatsApp, sequência de
+      follow-up, matriz de objeções e script de fechamento pelo framework CLOSER.
+    outputs:
+      - script_primeiro_contato: "markdown"
+      - sequencia_followup: "markdown"
+      - matriz_objecoes: "markdown"
+      - script_closer: "markdown"
+    checkpoint:
+      gate: "Scripts cobrem: primeiro contato, 5 follow-ups, top 5 objeções e fechamento CLOSER completo"
+      veto: "head-comercial rejeita scripts genéricos não calibrados para o ICP e a oferta"
+      required_output: "Kit de scripts de vendas pronto para o time do cliente"
+
+  - id: phase_6_entrega
+    name: "Entrega e Tarefas VerDash"
+    agent: head-comercial
+    depends_on: [phase_4_pipeline, phase_5_scripts]
+    description: |
+      Head Comercial consolida todos os entregáveis e cria as tarefas de
+      implementação no CRM da VerDash. Cada tarefa é atribuída com responsável
+      e prazo definido. Gera também o relatório de entrega para o cliente.
+    outputs:
+      - relatorio_entrega: "markdown"
+      - tarefas_crm: "list"
+    tracking_actions:
+      - "Criar tarefa: Implementar pipeline no Kommo"
+      - "Criar tarefa: Cadastrar campos e etiquetas"
+      - "Criar tarefa: Configurar automações de follow-up"
+      - "Criar tarefa: Treinar time nos scripts de abordagem"
+      - "Adicionar nota na oportunidade do cliente com link para entregáveis"
+    checkpoint:
+      gate: "Mínimo 4 tarefas criadas no CRM VerDash com responsável e prazo"
+      veto: "Nenhum"
+      required_output: "Tarefas criadas na VerDash + relatório de entrega consolidado"
+
+completion_criteria:
+  - "Diagnóstico comercial do cliente documentado"
+  - "Proposta de valor refinada pela Value Equation"
+  - "Pipeline CRM estruturado com etapas, campos e etiquetas"
+  - "Sequência de automações de follow-up projetada"
+  - "Kit de scripts de vendas (contato, follow-up, objeções, fechamento) entregue"
+  - "Tarefas de implementação criadas no CRM da VerDash"
+
+error_handling:
+  sem_informacoes_cliente: "Head Comercial solicita briefing adicional antes de prosseguir. Bloquear pipeline."
+  oferta_muito_generica: "Hormozi Offers retorna para fase de diagnóstico com perguntas específicas sobre diferenciais."
+  crm_ja_existente: "Hormozi CRM faz auditoria do CRM existente ao invés de setup do zero."

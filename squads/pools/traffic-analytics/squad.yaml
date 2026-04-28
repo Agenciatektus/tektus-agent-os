@@ -1,0 +1,32 @@
+id: "squads/traffic-analytics"
+name: "Traffic Analytics Squad"
+description: "Pipeline de mensuração de tráfego pago — coleta CAC/CPL/ROAS de Meta+Google+TikTok, cruza com receita real do CRM/checkout pra atribuição honesta, identifica creative fatigue e propõe kill/scale/new-wave decisions. Espelha content-analytics mas pra contas de ads."
+
+leader: "paid-analyst"
+pool: "./agents"
+
+members:
+  paid-analyst:
+    role: "Análise diária — kill/scale/new-wave decisions baseadas em performance + atribuição cruzada"
+  attribution-curator:
+    role: "Owner do modelo de atribuição — reconcilia last-click do Meta com GA4 + receita real do CRM"
+
+# Cross-squad (on-call):
+# traffic-launch       → recebe novas campanhas pra setup de monitoramento
+# traffic-masters-pool → recebe insights sobre creative fatigue e ângulos saturados
+# content-analytics    → coordenação quando criativos vêm de orgânico (creative-recycle)
+# strategist (BP)      → quando KPIs de tráfego forçam recalibração estratégica
+
+inputs:
+  - paid-launch brief (KPIs alvo, kill/scale criteria definidos na Fase 1)
+  - tracking-spec (eventos + value parameters da BP pixel-setup)
+  - test-grid documentado (hipóteses por wave de criativos)
+  - dados de plataforma: Meta Ads Insights, Google Ads, TikTok Ads
+  - dados de CRM/checkout: receita real por lead/sale (não só last-click)
+
+outputs:
+  - dashboard de tráfego (atualizado diário)
+  - daily standup (10min) — alertas de KPI + decisões pendentes
+  - report semanal — top wins/losses + experimentos próxima wave
+  - flags de creative fatigue ou audience saturada
+  - decisões de kill/scale/new-wave assinadas

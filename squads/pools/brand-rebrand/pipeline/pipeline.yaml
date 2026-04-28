@@ -1,0 +1,67 @@
+id: "brand-rebrand-pipeline"
+name: "Rebranding"
+description: "Workflow de rebranding. Começa com auditoria abrangente, revisa posicionamento, atualiza identidade e renova messaging. Preserva o que funciona."
+trigger: "*rebrand"
+estimated_duration: "45-90 min"
+type: sequential
+
+phases:
+  - id: phase_0_audit
+    name: "Brand Audit"
+    agent: david-aaker
+    action: audit-brand
+    description: "Comprehensive brand health audit using Aaker's equity model and Kapferer's identity prism. Identifies what to preserve, fix, and rebuild."
+    checkpoint:
+      gate: "Audit complete with clear preserve/fix/rebuild classification"
+      veto: "Audit reveals the brand is healthy — rebrand not justified"
+    outputs:
+      - audit_report
+      - health_score
+      - preserve_list
+      - fix_list
+
+  - id: phase_1_positioning_review
+    name: "Positioning Review"
+    agent: al-ries
+    action: create-positioning
+    depends_on: [phase_0_audit]
+    description: "Reassess positioning against current competitive landscape. Determine if position needs to shift."
+    checkpoint:
+      gate: "Positioning decision made: keep, refine, or pivot"
+      veto: "Positioning pivot proposed without sufficient competitive analysis"
+    outputs:
+      - positioning_review
+      - new_positioning
+      - change_magnitude
+
+  - id: phase_2_identity_update
+    name: "Identity Update"
+    agent: alina-wheeler
+    action: build-identity
+    depends_on: [phase_0_audit, phase_1_positioning_review]
+    description: "Update visual and verbal identity based on audit findings. Preserve strong elements, redesign weak ones."
+    checkpoint:
+      gate: "Identity updates align with new positioning and preserve strengths"
+      veto: "Changes destroy existing brand equity without justification"
+    outputs:
+      - updated_identity
+      - change_summary
+
+  - id: phase_3_messaging_refresh
+    name: "Messaging Refresh"
+    agent: donald-miller
+    action: create-brand-story
+    depends_on: [phase_1_positioning_review, phase_2_identity_update]
+    description: "Refresh brand story and messaging using StoryBrand SB7. Update BrandScript and touchpoint copy."
+    checkpoint:
+      gate: "Messaging consistent with updated positioning and identity"
+      veto: "Story disconnected from the brand's actual capabilities"
+    outputs:
+      - updated_brandscript
+      - updated_messaging
+
+completion_criteria:
+  - "Brand audited with preserve/fix/rebuild classification"
+  - "Positioning reviewed and decision made (keep, refine, or pivot)"
+  - "Identity updated preserving strengths and fixing weaknesses"
+  - "Messaging refreshed with StoryBrand alignment"

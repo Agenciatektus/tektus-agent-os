@@ -1,0 +1,14 @@
+id: "squads/content-publish"
+name: "Content Publishing Squad"
+description: "Pipeline de publicação e agendamento de conteúdo nas redes sociais. Adapta, publica e monitora o status."
+
+leader: "content-chief"
+pool: "../content-factory-pool/agents"
+
+members:
+  content-chief:
+    role: "Seleção & Aprovação Final"
+  format-strategist:
+    role: "Adaptação Multi-plataforma"
+  publisher:
+    role: "Upload, Publicação & Monitoramento"

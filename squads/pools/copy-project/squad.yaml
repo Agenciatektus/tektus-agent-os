@@ -1,0 +1,54 @@
+id: "squads/copy-project"
+name: "Copy Project Squad"
+description: "Pipeline completo de copywriting. Copy Chief diagnostica, roteia ao especialista certo (22 copywriters), supervisiona escrita e revisa qualidade."
+
+leader: "copy-chief"
+pool: "../copy-squad-pool/agents"
+
+members:
+  copy-chief:
+    role: "Orchestrator — Diagnóstico, Routing, Critique & Review"
+  # Specialists são roteados dinamicamente pelo Copy Chief baseado no tipo de copy:
+  # Direct Response Legends:
+  #   gary-halbert, eugene-schwartz, claude-hopkins, gary-bencivenga,
+  #   robert-collier, john-carlton, jim-rutz
+  # Modern Copy & Funnels:
+  #   dan-kennedy, frank-kern, russell-brunson, todd-brown,
+  #   stefan-georgi, jon-benson, ry-schwartz
+  # Email & Relationship:
+  #   ben-settle, andre-chaperon, dan-koe
+  # Offers & Sales Pages:
+  #   joe-sugarman, david-ogilvy, clayton-makepeace,
+  #   parris-lampropoulos, david-deutsch
+
+routing_matrix:
+  sales_letter:
+    primary: gary-halbert
+    secondary: eugene-schwartz
+  vsl_script:
+    primary: jon-benson
+    secondary: stefan-georgi
+  email_sequence:
+    primary: ben-settle
+    secondary: andre-chaperon
+  ad_copy:
+    primary: david-ogilvy
+    secondary: gary-bencivenga
+  landing_page:
+    primary: russell-brunson
+    secondary: frank-kern
+  funnel_copy:
+    primary: russell-brunson
+    secondary: todd-brown
+  headline:
+    primary: eugene-schwartz
+    secondary: joe-sugarman
+  offer:
+    primary: joe-sugarman
+    secondary: clayton-makepeace
+  bullets:
+    primary: jim-rutz
+    secondary: john-carlton
+  brand_copy:
+    primary: david-ogilvy
+    secondary: dan-koe

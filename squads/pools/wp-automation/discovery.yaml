@@ -1,0 +1,24 @@
+squad_code: "wp-automation-engine"
+version: "1.0.0"
+purpose: "Squad global de alta performance especializado em automação de conteúdo WordPress via manipulação de JSON do Elementor e infraestrutura SSH/WP-CLI."
+domain: "wp-dev-ops"
+
+agents:
+  - id: "eduardo-estrutura"
+    role: "JSON Surgeon"
+    skills: ["wp-elementor-surgeon"]
+    description: "Especialista em análise e mutação da árvore de dados do Elementor. Responsável pela integridade dos IDs e payloads."
+  
+  - id: "wesley-wordpress"
+    role: "Infrastructure specialist"
+    skills: ["ssh-automation", "wp-cli-ops"]
+    description: "Especialista em comandos de terminal, backups e flush de cache no servidor."
+
+framework_compliance:
+  - "OpenSquad-v2"
+  - "Elementor-Flexbox-Ready"
+
+automation_rules:
+  - trigger: "Content update request (Markdown/Text)"
+  - action: "Fetch -> Backup -> Mutate -> Inject -> Flush"
+  - safety: "Always dump original JSON to .bak before injection"

@@ -1,0 +1,36 @@
+squad:
+  id: app-kickoff
+  name: "App Kickoff Squad"
+  version: "1.0.0"
+  description: |
+    Squad para inicialização de arquitetura e design de uma nova aplicação ou produto.
+    Coordena backend, UX, UI Premium e Dev Scaffold focado.
+  pool: dev-pool
+
+members:
+  - role: orchestrator
+    agent: tech-lead
+    responsibilities:
+      - "Receber o escopo do negócio"
+      - "Decidir MERN, T3 Stack, NextJS ou Vanilla"
+
+  - role: ux_specialist
+    agent: ui-ux-pro
+    responsibilities:
+      - "Desenhar o mapa de fluxo de telas"
+      - "Garantir a conversão funcional"
+
+  - role: ui_specialist
+    agent: web-designer-elite
+    responsibilities:
+      - "Aplicar a estética premium, motion e glassmorphism"
+
+  - role: backend_specialist
+    agent: backend-architect
+    responsibilities:
+      - "Modelar o DB e criar as specs das rotas da API isolada"
+
+  - role: dev_scaffold
+    agent: vibe-coder
+    responsibilities:
+      - "Criar o scaffolding inicial rapidão baseado nos specs"

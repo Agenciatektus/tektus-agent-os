@@ -1,0 +1,76 @@
+id: "copy-project-pipeline"
+name: "Projeto Completo de Copy"
+description: "Workflow completo de copywriting de ponta a ponta. Copy Chief faz triagem, direciona ao melhor especialista, supervisiona escrita e revisão final."
+trigger: "*full-copy-project"
+estimated_duration: "30-60 min"
+type: sequential
+
+phases:
+  - id: phase_0_diagnosis
+    name: "Brief & Diagnosis"
+    agent: copy-chief
+    action: diagnose
+    description: "Copy Chief receives the brief, diagnoses request, identifies copy type, awareness level, and selects the best specialist from 22 copywriters."
+    checkpoint:
+      gate: "Specialist identified with HIGH confidence"
+      veto: "Ambiguous brief — request clarification before proceeding"
+    outputs:
+      - diagnosis
+      - assigned_specialist
+      - copy_type
+
+  - id: phase_1_assignment
+    name: "Specialist Assignment"
+    agent: copy-chief
+    action: assign-specialist
+    depends_on: [phase_0_diagnosis]
+    description: "Copy Chief formally assigns the project to the selected specialist with brief, audience data, awareness level, and reference material."
+    checkpoint:
+      gate: "Specialist acknowledged with clear deliverables"
+      veto: "Specialist mismatch for the copy type"
+    outputs:
+      - assignment_brief
+
+  - id: phase_2_production
+    name: "Copy Production"
+    agent: "{assigned_specialist}"
+    action: write-copy
+    depends_on: [phase_1_assignment]
+    description: "The assigned specialist writes copy using their signature methodology. Dynamic task based on copy type: write-headline, write-sales-letter, write-vsl-script, write-email-sequence, write-ad-copy, write-landing-page, create-funnel-copy, write-bullets, or create-offer."
+    checkpoint:
+      gate: "Draft complete with all required sections per task format"
+      veto: "Draft missing critical sections or off-brief"
+    outputs:
+      - draft_copy
+
+  - id: phase_3_critique
+    name: "Chief Review"
+    agent: copy-chief
+    action: critique
+    depends_on: [phase_2_production]
+    description: "Copy Chief reviews the draft using the 8-point critique framework. Scores, identifies issues, and determines if copy is ready."
+    checkpoint:
+      gate: "Composite score >= 60% (Strong or Elite verdict)"
+      veto: "Composite score < 40% — specialist must rewrite"
+    outputs:
+      - critique_report
+      - verdict
+
+  - id: phase_4_delivery
+    name: "Final Delivery"
+    agent: copy-chief
+    action: review
+    depends_on: [phase_3_critique]
+    description: "Copy Chief compiles the final deliverable package with approved copy, critique notes, and usage recommendations."
+    checkpoint:
+      gate: "Client-ready package with all deliverables"
+      veto: "Unresolved critique issues still open"
+    outputs:
+      - final_copy
+      - usage_notes
+
+completion_criteria:
+  - "Brief diagnosed and specialist assigned"
+  - "Copy produced by the right specialist using the right methodology"
+  - "Chief review passed with Strong or Elite verdict"
+  - "Final package delivered with usage notes"

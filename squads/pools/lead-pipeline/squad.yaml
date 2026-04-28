@@ -1,0 +1,34 @@
+squad:
+  id: lead-pipeline
+  name: "Lead Pipeline Squad"
+  version: "1.0.0"
+  description: |
+    Squad focado em estruturar e otimizar a geração e qualificação de leads.
+    Diagnóstico Core 4, lead magnet, oferta de entrada e scripts de captação.
+  pool: salesops-pool
+  tracking_native: true
+
+members:
+  - role: orchestrator
+    agent: head-comercial
+    responsibilities:
+      - "Briefing inicial e validação de escopo"
+      - "Plano de captação final e criação de tarefas no CRM VerDash"
+
+  - role: lead_specialist
+    agent: hormozi-leads
+    responsibilities:
+      - "Diagnóstico Core 4"
+      - "Identificação do canal prioritário"
+
+  - role: offer_specialist
+    agent: hormozi-offers
+    responsibilities:
+      - "Criação do lead magnet pela Value Equation"
+      - "Estruturação da oferta de entrada"
+
+  - role: sales_specialist
+    agent: hormozi-closer
+    responsibilities:
+      - "Scripts de abordagem por canal"
+      - "Sequência de follow-up e perguntas de qualificação"

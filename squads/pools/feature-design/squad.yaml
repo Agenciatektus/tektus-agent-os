@@ -1,0 +1,20 @@
+id: "squads/feature-design"
+name: "Feature Design Squad"
+description: "Pipeline de design de funcionalidade. Da pesquisa de usuário até wireframing, design visual, handoff e integração com design system."
+
+leader: "design-chief"
+pool: "../design-pool/agents"
+
+members:
+  design-chief:
+    role: "Orchestrator & Review Final"
+  ux-designer:
+    role: "User Research, IA & Wireframes"
+  visual-generator:
+    role: "Visual Design & Component Spec"
+  ui-engineer:
+    role: "Implementation Handoff"
+  brad-frost:
+    role: "Design System Integration"
+  dan-mall:
+    role: "Handoff Support"

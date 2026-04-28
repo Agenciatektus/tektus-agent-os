@@ -1,0 +1,18 @@
+{
+  "_comment": "Tektus Agent OS — Claude Code settings example. Copy to .claude/settings.local.json in your project to activate. Hooks are what make ODP and onboarding work — without these registrations, the rules are just docs the agent might ignore.",
+
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "command": "node .claude/hooks/odp-reminder.js",
+        "description": "Inject ODP reminder (catalog of skills/squads/best-practices) into every user prompt. Forces the agent to declare tools before acting per rule 00-orchestration-protocol."
+      },
+      {
+        "command": "node .claude/hooks/onboarding-check.js",
+        "description": "Detect missing .tektus/profile.yaml and instruct the agent to run the tektus-onboarding skill before answering. See rule 14-first-run-onboarding."
+      }
+    ]
+  },
+
+  "_alternative_for_user_settings_json": "If you prefer global activation across all projects, copy these hooks blocks into ~/.claude/settings.json instead of per-project .claude/settings.local.json"
+}

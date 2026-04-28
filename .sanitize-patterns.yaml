@@ -1,0 +1,187 @@
+# =============================================================================
+# .sanitize-patterns.yaml — Padrões de detecção de vazamentos
+# =============================================================================
+# Lido por scripts/sanitize-check.js antes de commit/push e em CI.
+#
+# Cada categoria tem um array de regex JS-compatíveis. Match em qualquer
+# arquivo rastreado pelo git (excluindo binários listados em `exclude_extensions`)
+# bloqueia o commit/CI.
+#
+# Para extender: adicione padrões em `custom` na seção apropriada. NÃO edite
+# `defaults` — eles são sincronizados upstream.
+# =============================================================================
+
+version: 1
+
+# Extensões binárias a ignorar (falsos positivos em fonts, imagens, etc.)
+exclude_extensions:
+  - ttf
+  - woff
+  - woff2
+  - jpg
+  - jpeg
+  - png
+  - gif
+  - webp
+  - pdf
+  - zip
+  - ico
+  - otf
+  - svg
+  - mp4
+  - webm
+
+# Paths a ignorar mesmo se contiverem matches
+exclude_paths:
+  - .git/
+  - node_modules/
+  - .venv/
+  - dist/
+  - build/
+  - .sanitize-patterns.yaml      # auto-exclude (este arquivo cita patterns)
+  - scripts/sanitize-check.js    # idem
+  - docs/extraction-workflow.md  # idem (documenta exemplos)
+
+# =============================================================================
+# Categoria: IPs (públicos reais que você quer manter privados)
+# =============================================================================
+ips:
+  description: "IPs reais de servidores em produção"
+  severity: high
+  defaults:
+    # Nenhum default — IPs são sempre custom por organização
+  custom:
+    # IPs Tektus (LRN-20260426-018)
+    - "69\\.62\\.91\\.204"
+    - "217\\.216\\.80\\.86"
+
+# =============================================================================
+# Categoria: domínios privados / internos / clientes
+# =============================================================================
+domains:
+  description: "Domínios reais que devem ficar privados"
+  severity: high
+  defaults: []
+  custom:
+    # URLs internas Tektus
+    - "n8n\\.vps\\."
+    - "wa-api\\."
+    - "vault\\.verdash"
+    - "vault\\.tektus"
+
+# =============================================================================
+# Categoria: paths de filesystem internos
+# =============================================================================
+internal_paths:
+  description: "Estrutura de diretórios privada que não deve vazar"
+  severity: medium
+  defaults:
+    - "_Infra/secrets/"
+    - "_Infra/VPS-"
+    - "SquadAgency/"
+    - "Tektus/0[1-9]-"
+    - "Tektus/1[0-9]-"
+  custom:
+    # - "private-monorepo/"
+
+# =============================================================================
+# Categoria: nomes próprios (PII)
+# =============================================================================
+people:
+  description: "Nomes de pessoas reais — sócios, equipe, clientes"
+  severity: high
+  defaults: []
+  custom:
+    # Sócios Tektus
+    - "Peterson Queiroz"
+    - "\\bVitória\\b"
+    - "\\bVitoria\\b"
+    # Sócios cliente
+    - "Felipe Delgado"
+    # Donos cliente (caso Delícias da Fabi)
+    - "Fabiana Lopes"
+    - "Fabi \\(dona\\)"
+
+# =============================================================================
+# Categoria: nomes de cliente / produto comercial
+# =============================================================================
+clients_and_products:
+  description: "Marcas reais de cliente / produto interno"
+  severity: high
+  defaults: []
+  custom:
+    # Clientes Tektus (regex sweep canônico LRN-20260426-018)
+    - "Portal da China"
+    - "portaldachina"
+    - "portal-da-china"
+    - "Delícias da Fabi"
+    - "Delicias da Fabi"
+    - "delicias-da-fabi"
+    - "Yasmin Thayna"
+    - "yasminthayna"
+    - "Brandassicare"
+    - "\\bbrandassi\\b"
+    - "dgaacademico"
+    - "Valplanejados"
+    - "valplanejados"
+    - "RBA Company"
+    - "RBA_company"
+    - "Andar 41"
+    - "andar-41"
+    - "Studio L"
+    - "cofrenovo"
+    - "Valor-H"
+    - "valor-h"
+    # Sistemas próprios Tektus (não-públicos)
+    - "\\bVerdash\\b"
+    - "\\bTintim\\b"
+    - "\\bFZAP\\b"
+    - "Vaultwarden"
+
+# =============================================================================
+# Categoria: tokens, keys, secrets
+# =============================================================================
+secrets:
+  description: "Padrões de credenciais — bloqueia mesmo em exemplo"
+  severity: critical
+  defaults:
+    - "Bearer\\s+[A-Za-z0-9_\\-]{20,}"      # Bearer tokens
+    - "sk-[A-Za-z0-9]{20,}"                  # OpenAI / SDK keys
+    - "ghp_[A-Za-z0-9]{20,}"                 # GitHub PATs
+    - "xox[baprs]-[A-Za-z0-9-]{10,}"        # Slack tokens
+    - "AKIA[0-9A-Z]{16}"                     # AWS access keys
+    - "AIza[0-9A-Za-z\\-_]{35}"              # Google API keys
+    - "ssh-rsa AAAA[0-9A-Za-z+/]+"           # SSH RSA pubkey (se publica, é decisão consciente)
+    - "ssh-ed25519 AAAA[0-9A-Za-z+/]+"       # SSH ed25519 pubkey
+    - "-----BEGIN (RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----"  # private keys (qualquer)
+  custom: []
+
+# =============================================================================
+# Categoria: URLs sslip.io / domínios temporários de deploy
+# =============================================================================
+ephemeral_urls:
+  description: "URLs temporárias geradas por Coolify/etc com IP embutido"
+  severity: medium
+  defaults:
+    - "[a-z0-9-]+\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.sslip\\.io"
+    - "[a-z0-9-]+\\.nip\\.io"
+  custom: []
+
+# =============================================================================
+# Comportamento
+# =============================================================================
+behavior:
+  # Quando bloquear:
+  # - "commit"  -> roda no pre-commit (rápido, só staged)
+  # - "push"    -> roda no pre-push (full ls-files)
+  # - "both"    -> ambos
+  block_on: both
+
+  # Em CI:
+  ci_fail_severity: medium  # bloqueia PR em medium e acima
+
+  # Mostrar contexto (linha + 2 antes/depois) ao reportar match?
+  show_context: true
+
+  # Auto-fix sugerido? (não aplica, só sugere)
+  suggest_fixes: true

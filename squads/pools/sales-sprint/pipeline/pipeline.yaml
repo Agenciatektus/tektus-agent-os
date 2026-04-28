@@ -1,0 +1,135 @@
+workflow:
+  id: sales-sprint
+  name: "Sprint de Operações Comerciais"
+  version: "1.0.0"
+  trigger: "*sales-sprint"
+  entry_agent: head-comercial
+  squad: salesops
+  estimated_duration: "2 semanas (ciclo recorrente)"
+  cadence: "Repetível quinzenalmente"
+  type: sequential
+  description: |
+    Sprint quinzenal de otimização comercial. O Head Comercial lê os dados do 
+    CRM da VerDash, identifica o gargalo principal da quinzena, e aciona o 
+    especialista correto para uma ação corretiva. Ao final, cria as tarefas 
+    da próxima quinzena no CRM com responsáveis e prazos.
+
+inputs:
+  - name: cliente_id
+    required: true
+    description: "ID do cliente na VerDash"
+  - name: sprint_numero
+    required: false
+    default: 1
+    description: "Número do sprint atual (para rastreamento histórico)"
+  - name: foco_sprint
+    required: false
+    description: "Área de foco: captacao, conversao, retencao, oferta (auto-detectado se não informado)"
+
+phases:
+  - id: phase_1_data_review
+    name: "Leitura de Dados — VerDash"
+    agent: head-comercial
+    depends_on: []
+    description: |
+      Head Comercial faz a leitura completa do estado atual do CRM do cliente na VerDash:
+      - Leads por etapa do funil
+      - Leads parados sem toque (+48h)
+      - Taxa de conversão por etapa
+      - Tarefas abertas da quinzena anterior
+      - Métricas de tráfego disponíveis
+      - Feedback do campo comercial
+    outputs:
+      - snapshot_crm: "object"
+      - leads_parados: "list"
+      - conversao_por_etapa: "object"
+      - tarefas_abertas: "list"
+    checkpoint:
+      gate: "Snapshot do CRM completo com métricas de conversão por etapa"
+      veto: "Nenhum — fase de leitura pura"
+      required_output: "Dashboard textual do estado atual do funil"
+
+  - id: phase_2_diagnostico_sprint
+    name: "Diagnóstico do Gargalo da Quinzena"
+    agent: hormozi-chief
+    depends_on: [phase_1_data_review]
+    description: |
+      Hormozi Chief recebe o snapshot e diagnostica qual é o maior gargalo 
+      comercial desta quinzena. Classifica o problema no framework Hormozi 
+      (Leads, Oferta, Preço, Vendas, Retenção) e determina qual especialista 
+      deve atuar e qual ação terá maior impacto.
+    outputs:
+      - gargalo_quinzena: "string"
+      - framework_aplicavel: "string"
+      - especialista_recomendado: "string"
+      - acao_prioritaria: "string"
+    checkpoint:
+      gate: "Diagnóstico identifica UM gargalo principal com framework mapeado e especialista definido"
+      veto: "head-comercial rejeita se diagnóstico é vago sem ação clara"
+      required_output: "Diagnóstico do gargalo com especialista e ação prioritária definidos"
+
+  - id: phase_3_acao_especialista
+    name: "Ação Corretiva — Especialista"
+    agent: "{{especialista_recomendado}}"  # routing dinâmico baseado no diagnóstico
+    depends_on: [phase_2_diagnostico_sprint]
+    description: |
+      O especialista selecionado pelo Hormozi Chief executa a ação corretiva.
+      
+      Se gargalo = leads → hormozi-leads: diagnóstico Core 4 + plano de captação
+      Se gargalo = conversão → hormozi-closer: revisão/criação de scripts + objeções
+      Se gargalo = oferta → hormozi-offers: refinamento da proposta de valor
+      Se gargalo = preço → hormozi-pricing: auditoria de precificação
+      Se gargalo = churn → hormozi-retention: diagnóstico + plano de retenção
+      Se gargalo = crm → hormozi-crm: auditoria + ajustes de pipeline
+    routing:
+      leads: hormozi-leads
+      conversao: hormozi-closer
+      oferta: hormozi-offers
+      preco: hormozi-pricing
+      retencao: hormozi-retention
+      crm: hormozi-crm
+      diagnostico_geral: hormozi-chief
+    outputs:
+      - acao_corretiva: "markdown"
+      - entregavel_sprint: "markdown"
+    checkpoint:
+      gate: "Ação corretiva tem entregável concreto e implementável (não apenas recomendação teórica)"
+      veto: "head-comercial rejeita se entregável é genérico sem calibração para o cliente"
+      required_output: "Entregável pronto para implementação: script, plano, configuração ou análise"
+
+  - id: phase_4_tarefas_proxima_quinzena
+    name: "Criação de Tarefas — Próxima Quinzena"
+    agent: head-comercial
+    depends_on: [phase_3_acao_especialista]
+    description: |
+      Head Comercial recebe o entregável do especialista e traduz em tarefas 
+      concretas para a equipe da Tektus e do cliente. Cria todas as tarefas 
+      no CRM da VerDash com responsável, prazo e descrição clara.
+      Gera também o relatório de sprint para apresentar ao cliente.
+    outputs:
+      - relatorio_sprint: "markdown"
+      - tarefas_criadas: "list"
+      - prioridade_proxima_quinzena: "list"
+    tracking_actions:
+      - "Criar tarefas de implementação com responsável e prazo"
+      - "Fechar tarefas da quinzena anterior como concluídas"
+      - "Adicionar nota na oportunidade com sumário do sprint"
+      - "Atualizar campo 'próxima ação' no lead/oportunidade"
+    checkpoint:
+      gate: "Mínimo 3 tarefas criadas para a próxima quinzena, cada uma com responsável e prazo"
+      veto: "Nenhum — fase de entrega"
+      required_output: "Relatório do sprint + tarefas criadas na VerDash"
+
+completion_criteria:
+  - "Snapshot do funil da quinzena documentado"
+  - "Gargalo principal identificado e mapeado para framework Hormozi"
+  - "Ação corretiva executada pelo especialista correto"
+  - "Entregável concreto gerado (script, plano, configuração ou análise)"
+  - "Tarefas da próxima quinzena criadas no CRM VerDash"
+  - "Relatório de sprint gerado para apresentação ao cliente"
+
+error_handling:
+  crm_sem_dados: "Head Comercial solicita acesso aos dados antes de prosseguir. Sprint pausado."
+  multiplos_gargalos: "Hormozi Chief prioriza o de maior impacto. Os demais entram no backlog da próxima quinzena."
+  sem_resposta_especialista: "Head Comercial executa ação padrão de manutenção e agenda re-diagnóstico."
+  cliente_sem_trafego_ativo: "Sprint focado em estrutura comercial (CRM, scripts) enquanto tráfego não está rodando."

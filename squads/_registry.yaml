@@ -1,0 +1,32 @@
+# Registry de Squads - SquadAgency
+# Este arquivo define a hierarquia de liderança e os sub-squads.
+
+hierarchy:
+  root: ceo
+  executive_squad: C-Level
+  internal_squads_path: squads/Internal
+
+mappings:
+  - leader: cgo
+    squads:
+      - Internal/Growth-Experiments
+      - Internal/Performance-Ads
+  - leader: cmo
+    squads:
+      - Internal/Inbound-Marketing
+      - Internal/Design-Criativos
+  - leader: cto
+    squads:
+      - Internal/Tech-Automation
+      - Internal/Dev-Infrastructure
+      - Internal/Cyber-Seguranca   # Blue Team / DevSecOps. Coordena com cybersecurity-pool (Red Team) em pentest.
+  - leader: coo
+    squads:
+      - Internal/Operations-Agility
+  - leader: cdo
+    squads:
+      - memory  # O CDO gerencia a pasta de memória diretamente
+
+orchestration:
+  dante_target: ceo
+  default_delegation_mode: ICE-Priority

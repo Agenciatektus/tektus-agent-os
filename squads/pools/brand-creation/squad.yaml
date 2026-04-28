@@ -1,0 +1,31 @@
+id: "squads/brand-creation"
+name: "Brand Creation Squad"
+description: "Pipeline de criação de marca de ponta a ponta. Da pesquisa de mercado ao posicionamento, naming, design de identidade e brand story."
+
+leader: "brand-chief"
+pool: "../brand-pool/agents"
+
+members:
+  brand-chief:
+    role: "Orchestrator — Diagnóstico, Routing & Review Final"
+  archetype-consultant:
+    role: "Fase 0 — Pesquisa de Arquétipo & Personalidade"
+  al-ries:
+    role: "Fase 1 — Posicionamento & Estratégia de Categoria"
+  naming-strategist:
+    role: "Fase 2 — Geração e Avaliação de Nomes"
+  alina-wheeler:
+    role: "Fase 3 — Sistema de Identidade Visual & Verbal"
+  donald-miller:
+    role: "Fase 4 — Brand Story (StoryBrand SB7)"
+
+# On-call do pool:
+# david-aaker → Brand Equity, Arquitetura
+# kevin-keller → CBBE, Brand Measurement
+# jean-noel-kapferer → Identity Prism, Luxo
+# byron-sharp → Evidence-Based Growth
+# marty-neumeier → Diferenciação Radical
+# denise-yohn → Cultura de Marca
+# emily-heyward → Startup Branding
+# domain-scout → Disponibilidade de Domínio
+# miller-sticky-brand → Messaging Sticky

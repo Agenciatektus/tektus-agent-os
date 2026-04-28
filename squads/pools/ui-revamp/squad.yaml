@@ -1,0 +1,24 @@
+squad:
+  id: ui-revamp
+  name: "UI Revamp Squad"
+  version: "1.0.0"
+  description: |
+    Squad dedicado a modernizar interfaces estáticas, monótonas ou genéricas. 
+    Adiciona micro-interações, bibliotecas de motion premium e afia o design.
+  pool: dev-pool
+
+members:
+  - role: orchestrator
+    agent: tech-lead
+    responsibilities:
+      - "Identifica restrições técnicas do projeto atual"
+
+  - role: ux_auditor
+    agent: ui-ux-pro
+    responsibilities:
+      - "Verifica que a modernização visual não quebrou a acessibilidade"
+
+  - role: ui_transformer
+    agent: web-designer-elite
+    responsibilities:
+      - "Executar o Revamp (Mágica Visual): Componentes, cores, tipografia, shadcn, aceternity, motion."

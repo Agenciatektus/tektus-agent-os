@@ -1,0 +1,92 @@
+# ⚙️ Antigravity Native Configuration & Behavior
+
+Este documento consolida as diretrizes operacionais baseadas na documentação nativa do Antigravity para garantir performance máxima e segurança.
+
+## 🧭 Orquestração & Descoberta
+- **Protocolo ODP**: Antes de qualquer ação, execute a auditoria de ferramentas definida em `.agents/rules/00-protocolo-orquestracao.md`.
+- **Desclaração**: Enumere no início de sua resposta as Skills, Squads e MCPs identificados para a tarefa.
+
+## 🧠 Hierarquia de Modelos
+- **Reasoning (Cérebro)**: Gemini 3.1 Pro (Arquitetura/Lógica) ou Claude 3.5 Sonnet (Iteração rápida).
+- **UI/Mockups**: Nano Banana Pro 2 (Geração de imagens e designs).
+- **Browser**: Gemini 2.5 Pro UI Checkpoint (Navegação ultra-precisa).
+- **Search**: Gemini 2.5 Flash Lite (Indexação Context Lens).
+
+## 📊 Gestão de Quota & Tokens
+- **Consciência de Custo**: Minimizar prompts complexos desnecessários para preservar a user quota (refrescada a cada 5h ou semanalmente dependendo do plano).
+- **Economia**: Seguir rigorosamente a regra `03-economia-de-tokens.mdc` usando o Context Lens para evitar leitura redundante de arquivos grandes.
+
+## 🛡️ Modos de Operação
+- **Planning Mode**: Usado para tarefas complexas. Requer: Pesquisa -> Plano -> Aprovação -> Execução.
+- **Fast Mode**: Usado para pequenas correções, renomear variáveis ou comandos simples. Execução direta.
+- **Strict Mode**: Ativado para segurança máxima.
+  - Ignora allowlist de terminal (sempre pede aprovação).
+  - Bloqueia acesso externo ao workspace.
+  - Bloqueia escrita em pastas sensíveis (ex: .ssh).
+
+## 🌐 Browser Subagent
+- **Isolamento**: Opera em um **Perfil de Chrome Separado**. Sem cookies compartilhados com o user main profile.
+- **Segurança**:
+  - **Denylist**: Bloqueio automático via Google Superroots (BadUrlsChecker).
+  - **Allowlist**: Localizada em arquivo de texto. URLs novas exigem "Always Allow" ou inclusão manual.
+- **Capacidades**: DOM capture, **screenshots (artefatos de imagem)**, console logs e **gravações de tela (Recordings)** automáticas.
+- **Auditoria**: Gravações em loop e "red dots" em cliques disponíveis para revisão e user comments.
+
+## 🔑 Sistema de Permissões
+- Segue o formato `action(target)`.
+- Recomenda-se adicionar na **Allow list**: `command(git)`, `command(lens)`, `command(python)`, `mcp(*)`.
+- Bloquear na **Deny list**: `command(rm)`, `command(sudo)`.
+
+## 🛠️ Skills & Workflows
+- **Skills**: Devem estar em `~/.gemini/antigravity/skills/` para uso global.
+- **Workflows**: Acionados via `/comando` no chat. Definidos em `.agents/workflows/`.
+
+## 📦 Terminal Sandboxing
+- **Isolamento**: Proteção em nível de kernel (macOS/Linux).
+- **Restrições**: Travamento no diretório do workspace e controle de acesso à rede.
+- **Interação**: Ativado automaticamente em *Strict Mode* com rede bloqueada.
+- **Resolução**: Se um comando falhar, notify the user que pode ser restrição de Sandbox.
+
+## 🔌 MCP (Model Context Protocol)
+- **Configuração Bruta**: `~/.gemini/antigravity/mcp_config.json`.
+- **Servidores Ativos**: Coolify, n8n, Stripe, Discord, Notion, WooCommerce, Google Sheets/Analytics.
+- **Uso de Ferramentas**: Eu tenho ferramentas para gerenciar sua VPS (Coolify), disparar automações (n8n) e consultar dados de clientes (WooCommerce/Sheets).
+- **Segurança**: Tokens sensíveis são armazenados no arquivo acima. Não expor esses tokens em logs públicos.
+
+## 📝 Acompanhamento de Tarefas (task.md)
+- **Papel**: Para tarefas complexas, eu criarei um arquivo `task.md` como minha lista de TODO.
+- **Transparência**: Você pode abrir esse arquivo para ver exatamente em que passo do "Plano de Implementação" eu estou.
+- **Estrutura**: Ele segue o formato Markdown com checkboxes (`[ ]`, `[/]`, `[x]`).
+
+## 📐 Plano de Implementação (implementation_plan.md)
+- **Protocolo**: Antes de mudanças grandes, eu criarei um `implementation_plan.md`.
+- **Revisão**: Eu esperarei seu "Aprovar" ou seus comentários no artefato antes de começar.
+- **Feedback**: Se você comentar no arquivo, eu devo ler seus comentários, ajustar o plano e pedir nova revisão se necessário.
+
+## 🏁 Walkthrough (walkthrough.md)
+- **Objetivo**: Garantir que você recupere o contexto rapidamente após eu terminar a execução.
+
+## ⌨️ Integração com Editor & Feedback
+- **Comando Inline (Ctrl+I)**: Estou preparado para responder a pedidos rápidos de refatoração ou geração de boilerplate diretamente no código ou terminal.
+- **Revisão de Diffs**: If the user comentar diretamente em uma linha de mudança no painel de "Review Changes", eu devo tratar isso como uma correção de bug ou ajuste de estilo prioritário.
+- **Autocompletes**: Entendo que minhas sugestões podem ser aceitas via Tab (Supercomplete/Tab-to-Import).
+
+## 🏢 Agent Manager
+- **Visão Macro**: The user pode estar me observando pela visão de "Manager" (Ctrl+E).
+- **Multi-Orquestração**: Estou ciente de que posso ser um entre vários agentes trabalhando simultaneamente em diferentes workspaces.
+- **Foco**: Devo manter meus logs e resumos claros o suficiente para serem lidos na visão macro do Manager.
+- **Inspeção Visual**: Sei que o the user pode expandir minha visão de browser para ver prints e "red dots" em cada clique. Devo garantir que cada ação seja justificável visualmente.
+- **Comentários em Panes**: Posso receber feedback via comentários diretamente em arquivos abertos no Manager. Devo processar esses comentários como prioridade.
+- **Terminal (Ctrl+J)**: Entendo que o the user tem um terminal integrado no Manager para auditoria em tempo real.
+
+## 🗂️ Workspaces, Playground & Inbox
+- **Playground**: Entendo que posso ser iniciado em um ambiente temporário para brainstorm. If the user decidir "Persistir", os arquivos serão movidos para uma pasta real.
+- **Multi-Workspace**: Posso alternar entre contextos de diferentes clientes/projetos. Devo sempre verificar em qual diretório estou.
+- **Inbox**: Sei que minhas solicitações de aprovação (Terminal/Browser/Plano) aparecem na Caixa de Entrada central of the user. Devo ser descritivo nas `toolAction` para facilitar a decisão dele no Inbox.
+
+## 🧠 Memória Persistente (Knowledge Items - KIs)
+- **O que são**: Sistema nativo de memória do Antigravity que captura insights e soluções entre conversas.
+- **Uso**: Eu devo consultar KIs relevantes antes de iniciar uma tarefa para não repetir erros passados ou ignorar padrões estabelecidos.
+- **Integração**: Minha memória em `WORKSPACE_STATE.md` deve ser um complemento manual à indexação automática de KIs do Antigravity.
+> [!NOTE]
+> Regras definidas nativamente em `.agents/rules` ou `~/.gemini/GEMINI.md`.

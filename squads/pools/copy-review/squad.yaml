@@ -1,0 +1,16 @@
+id: "squads/copy-review"
+name: "Copy Review Cycle Squad"
+description: "Ciclo iterativo de escrita-crítica-revisão. Especialista produz, Copy Chief critica, especialista revisa. Máx 3 iterações."
+
+leader: "copy-chief"
+pool: "../copy-squad-pool/agents"
+
+members:
+  copy-chief:
+    role: "Critique & Final Review"
+  # Specialist é dinâmico — roteado pelo copy-chief
+
+config:
+  max_iterations: 3
+  pass_threshold: 60
+  elite_threshold: 80

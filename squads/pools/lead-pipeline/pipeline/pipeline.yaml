@@ -1,0 +1,154 @@
+workflow:
+  id: lead-pipeline
+  name: "Pipeline de Geração e Qualificação de Leads"
+  version: "1.0.0"
+  trigger: "*lead-pipeline"
+  entry_agent: hormozi-leads
+  squad: salesops
+  estimated_duration: "1-3 horas"
+  type: sequential
+  description: |
+    Pipeline focado em estruturar ou otimizar a geração de leads de um cliente.
+    Começa com o diagnóstico Core 4, define o lead magnet ideal, cria a oferta 
+    de entrada e entrega scripts de abordagem calibrados para o ICP. O resultado 
+    são tarefas concretas de captação criadas no CRM da VerDash.
+
+inputs:
+  - name: cliente_id
+    required: true
+    description: "ID do cliente na VerDash"
+  - name: canal_atual
+    required: false
+    description: "Canais de captação já ativos (Meta, Google, WhatsApp, Orgânico)"
+  - name: volume_leads_mes
+    required: false
+    description: "Volume mensal atual de leads (se disponível)"
+  - name: taxa_conversao
+    required: false
+    description: "Taxa de conversão atual lead → cliente (se disponível)"
+
+phases:
+  - id: phase_1_briefing_contexto
+    name: "Briefing & Contexto do Cliente"
+    agent: head-comercial
+    depends_on: []
+    description: |
+      Head Comercial lê o contexto completo do cliente na VerDash:
+      ICP, plano contratado, canais ativos, histórico de leads e serviços em escopo.
+      Verifica se a captação de leads está dentro do plano antes de prosseguir.
+    outputs:
+      - briefing_cliente: "markdown"
+      - canais_ativos: "list"
+      - icp_summary: "string"
+    checkpoint:
+      gate: "Captação de leads dentro do escopo contratado e ICP claramente definido"
+      veto: "head-comercial para o pipeline se captação não está no plano do cliente"
+      required_output: "Briefing com ICP, canais ativos e escopo validado"
+
+  - id: phase_2_diagnostico_core4
+    name: "Diagnóstico Core 4"
+    agent: hormozi-leads
+    depends_on: [phase_1_briefing_contexto]
+    description: |
+      Hormozi Leads analisa o estado atual da geração de leads pelo framework Core 4:
+      - Warm Outreach: está ativo? Tem sistema de indicações?
+      - Cold Outreach: está ativo? Volume adequado?
+      - Conteúdo: está publicando? Qual frequência?
+      - Anúncios Pagos: está rodando? LTGP > CPA?
+      
+      Identifica qual canal está faltando ou subdimensionado e qual tem maior 
+      potencial de impacto imediato para o estágio do negócio.
+    outputs:
+      - diagnostico_core4: "markdown"
+      - canal_prioritario: "string"
+      - lacunas_identificadas: "list"
+      - estagio_negocio: "string"
+    checkpoint:
+      gate: "Diagnóstico mapeia os 4 canais com status e identifica o canal de maior impacto"
+      veto: "head-comercial rejeita se diagnóstico não considera o estágio do negócio do cliente"
+      required_output: "Análise Core 4 com canal prioritário e plano de ação"
+
+  - id: phase_3_lead_magnet
+    name: "Lead Magnet & Oferta de Entrada"
+    agent: hormozi-offers
+    depends_on: [phase_2_diagnostico_core4]
+    description: |
+      Hormozi Offers cria o lead magnet ideal para o canal prioritário identificado.
+      Aplica a Value Equation: Alto Resultado Desejado x Alta Probabilidade / 
+      Baixo Tempo x Baixo Esforço. Define também a oferta de entrada que converte 
+      o lead em cliente com menor fricção possível (diagnóstico gratuito, sessão 
+      estratégica, checklist, etc.).
+    outputs:
+      - lead_magnet: "markdown"
+      - oferta_entrada: "markdown"
+      - proposta_valor_captacao: "string"
+    checkpoint:
+      gate: "Lead magnet passa no teste Value Equation: entrega valor imediato e é degrau natural para oferta principal"
+      veto: "hormozi-leads rejeita lead magnet que não está alinhado com o canal prioritário"
+      required_output: "Lead magnet definido + oferta de entrada estruturada"
+
+  - id: phase_4_scripts_captacao
+    name: "Scripts de Captação e Abordagem"
+    agent: hormozi-closer
+    depends_on: [phase_2_diagnostico_core4, phase_3_lead_magnet]
+    description: |
+      Hormozi Closer cria os scripts de abordagem para o canal prioritário:
+      - Warm Outreach: script de reativação de contatos e pedido de indicações
+      - Cold Outreach: script de primeiro contato + sequência de follow-up
+      - WhatsApp: script de resposta a leads captados via anúncios
+      - Qualificação: perguntas de qualificação alinhadas ao ICP
+      
+      Todos calibrados para o ICP e a proposta de valor do cliente.
+    outputs:
+      - script_abordagem: "markdown"
+      - sequencia_followup: "markdown"
+      - perguntas_qualificacao: "list"
+    checkpoint:
+      gate: "Scripts cobrem canal prioritário com mínimo: abertura, qualificação e próximo passo claro"
+      veto: "head-comercial rejeita scripts genéricos não calibrados para o ICP específico"
+      required_output: "Kit de scripts de captação pronto para uso"
+
+  - id: phase_5_plano_captacao
+    name: "Plano de Captação e Tarefas VerDash"
+    agent: head-comercial
+    depends_on: [phase_2_diagnostico_core4, phase_3_lead_magnet, phase_4_scripts_captacao]
+    description: |
+      Head Comercial consolida tudo em um plano de captação prático.
+      Define: canal, volume esperado, frequência, responsável e métricas de sucesso.
+      Cria todas as tarefas de execução no CRM da VerDash com prazo e responsável.
+      Adiciona nota na oportunidade do cliente com o plano completo.
+    outputs:
+      - plano_captacao: "markdown"
+      - metricas_sucesso: "object"
+      - tarefas_crm: "list"
+    tracking_actions:
+      - "Criar tarefa: Implementar lead magnet no canal definido"
+      - "Criar tarefa: Executar campanha de warm outreach (se aplicável)"
+      - "Criar tarefa: Configurar sequência de cold outreach (se aplicável)"
+      - "Criar tarefa: Aprovar e publicar scripts de abordagem com o cliente"
+      - "Criar tarefa: Revisão de resultados em 2 semanas"
+      - "Adicionar nota na oportunidade com plano de captação completo"
+    checkpoint:
+      gate: "Plano tem: canal definido, volume esperado, prazo de implementação e métricas de sucesso"
+      veto: "Nenhum — fase de entrega"
+      required_output: "Plano de captação + tarefas criadas no CRM VerDash"
+
+completion_criteria:
+  - "Diagnóstico Core 4 completo com canal prioritário identificado"
+  - "Lead magnet criado e validado pela Value Equation"
+  - "Oferta de entrada estruturada e calibrada para o ICP"
+  - "Kit de scripts de captação e abordagem entregue"
+  - "Plano de captação com métricas de sucesso definidas"
+  - "Tarefas de execução criadas no CRM VerDash"
+
+error_handling:
+  sem_verba_midia: |
+    Pipeline foca em warm outreach e cold outreach (gratuitos).
+    Hormozi Leads explica que anúncios pagos só entram quando o orgânico converter.
+  icp_indefinido: |
+    Head Comercial para o pipeline e cria tarefa: "Definir ICP com o cliente antes de avançar".
+  canal_ja_funcionando: |
+    Hormozi Leads faz diagnóstico de otimização do canal existente ao invés de criar novo.
+  fora_do_escopo: |
+    Head Comercial sinaliza que captação não está no plano atual e cria tarefa comercial
+    para oferecer upgrade de plano ao cliente.

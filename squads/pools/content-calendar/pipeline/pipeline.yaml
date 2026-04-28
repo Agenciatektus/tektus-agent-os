@@ -1,0 +1,66 @@
+id: "content-calendar-pipeline"
+name: "Planejamento Editorial Mensal"
+description: "Gera o calendário editorial completo para o mês de um cliente, incluindo pilares, mix de formatos, plataformas e cronograma."
+trigger: "*content-calendar"
+estimated_duration: "30-60 min"
+type: sequential
+
+phases:
+  - id: phase_1_briefing
+    name: "Briefing & Pilares"
+    agent: content-chief
+    action: collect-briefing
+    description: "Coleta brand voice, público-alvo, objetivos do mês, ofertas ativas, tom de voz."
+    checkpoint:
+      gate: "Briefing completo com público, objetivo e tom de voz definidos"
+      veto: "HALT se não houver clareza sobre público-alvo ou objetivo do mês"
+    outputs:
+      - client_briefing
+      - content_pillars
+      - brand_voice_guide
+
+  - id: phase_2_trends
+    name: "Pesquisa de Tendências & Formatos"
+    agent: format-strategist
+    action: research-trends
+    depends_on: [phase_1_briefing]
+    description: "Mapeia trends de cada plataforma, formatos em alta, hooks virais e oportunidades sazonais."
+    checkpoint:
+      gate: "Relatório de tendências entregue com recomendações de formato por plataforma"
+    outputs:
+      - trend_report
+      - format_recommendations
+      - seasonal_opportunities
+
+  - id: phase_3_calendar
+    name: "Construção do Calendário"
+    agent: calendar-planner
+    action: build-calendar
+    depends_on: [phase_2_trends]
+    description: "Gera o calendário editorial completo com datas, pilares, formatos, plataformas e temas."
+    checkpoint:
+      gate: "Calendário mensal completo em formato tabela Markdown"
+    outputs:
+      - editorial_calendar
+      - weekly_breakdown
+      - content_mix_summary
+
+  - id: phase_4_approval
+    name: "Revisão & Aprovação"
+    agent: content-chief
+    action: review-calendar
+    depends_on: [phase_3_calendar]
+    description: "Apresenta calendário para aprovação. Valida equilíbrio de pilares, frequência e mix de formatos."
+    checkpoint:
+      gate: "Calendário aprovado e pronto para execução"
+      veto: "HALT se o mix de pilares estiver desequilibrado (>40% do mesmo pilar)"
+    outputs:
+      - approved_calendar
+      - production_queue
+
+completion_criteria:
+  - "Briefing completo com objetivos e tom de voz"
+  - "Tendências mapeadas por plataforma"
+  - "Calendário gerado com datas, pilares, formatos e plataformas"
+  - "Mix de conteúdo equilibrado (educação, bastidores, vendas, autoridade, entretenimento)"
+  - "Calendário aprovado pelo Content Chief"

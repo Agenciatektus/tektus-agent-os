@@ -1,0 +1,29 @@
+id: "squads/content-analytics"
+name: "Content Analytics Squad"
+description: "Pipeline de mensuração e ajuste contínuo de conteúdo. Coleta métricas das plataformas, compara contra KPIs definidos pela strategist, identifica padrões de high/low performers, e devolve recomendações acionáveis pro content-calendar e content-production."
+
+leader: "kpi-curator"
+pool: "./agents"
+
+members:
+  kpi-curator:
+    role: "Owner do dashboard de KPIs — define o que medir, garante coleta consistente, sinaliza desvios"
+  analyst:
+    role: "Análise qualitativa + quantitativa — extrai insights, propõe experimentos, escreve report semanal"
+
+# Cross-squad (on-call):
+# content-calendar  → recebe recomendações de pillars/formatos que estão funcionando
+# content-production → recebe ajustes táticos (hook patterns, CTA wording, hora ideal)
+# strategist (BP)   → ajusta KPIs ou recalibra estratégia se metas estão fora de alcance
+
+inputs:
+  - audience research brief (de audience-research BP) — pra normalizar métricas por persona
+  - editorial calendar (de content-calendar squad) — pra mapear conteúdo → pillar
+  - publish log (de content-publish squad) — URLs + scheduled_at + plataforma
+  - access a analytics platforms (GA4, Meta Insights, LinkedIn Analytics, etc.)
+
+outputs:
+  - dashboard atualizado (semanal mínimo)
+  - report executivo (mensal)
+  - lista de experimentos propostos (a/b de hook, format, hora) — passada pra content-production
+  - flags de KPIs fora de meta — escalado pra strategist + cliente

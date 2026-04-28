@@ -1,0 +1,22 @@
+squad: "mapeamento-processos"
+version: "1.0.0"
+title: "Mapeamento e Criação de Processos Tektus"
+
+description: >
+  Esquadrão especializado em entrevistar membros da equipe da Tektus e
+  extrair conhecimento operacional, transformando-o em playbooks .md rigorosos,
+  com árvores de decisão e regras anti-erros.
+
+skills: []
+
+data:
+  - pipeline/data/research-brief.md
+  - pipeline/data/domain-framework.md
+  - pipeline/data/quality-criteria.md
+  - pipeline/data/output-examples.md
+  - pipeline/data/anti-patterns.md
+
+agents:
+  - id: "squads/mapeamento-processos/agents/ivan-interrogador"
+  - id: "squads/mapeamento-processos/agents/patricia-playbook"
+  - id: "squads/mapeamento-processos/agents/renato-revisor"

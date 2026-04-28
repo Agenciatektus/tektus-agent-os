@@ -1,0 +1,24 @@
+squad:
+  id: security-audit
+  name: "Security Audit Squad"
+  version: "1.0.0"
+  description: |
+    Squad paranóico para revisar repósitorios e impedir vazamentos de dados, 
+    falhas de autenticação e injeções de código.
+  pool: dev-pool
+
+members:
+  - role: orchestrator
+    agent: tech-lead
+    responsibilities:
+      - "Organiza o pentest e compila reports"
+
+  - role: backend_specialist
+    agent: backend-architect
+    responsibilities:
+      - "Provê o mapa das rotas e esquemas de dados da aplicação"
+
+  - role: auditor
+    agent: security-expert
+    responsibilities:
+      - "Vasculha as rotas por falhas lógicas e OWASP Top 10"

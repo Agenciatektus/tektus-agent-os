@@ -1,0 +1,78 @@
+id: "copy-review-pipeline"
+name: "Ciclo de Revisão de Copy"
+description: "Ciclo iterativo escrita-crítica-revisão. Especialista produz, Copy Chief critica com 8 critérios, especialista revisa. Máx 3 iterações."
+trigger: "*copy-review-cycle"
+estimated_duration: "20-45 min"
+type: iterative
+
+config:
+  max_iterations: 3
+  pass_threshold: 60
+  elite_threshold: 80
+
+phases:
+  - id: phase_0_draft
+    name: "Initial Production"
+    agent: "{specialist}"
+    action: write-draft
+    description: "Specialist writes the initial draft using their methodology."
+    checkpoint:
+      gate: "Draft complete with all required sections"
+      veto: "Draft incomplete or missing critical elements"
+    outputs:
+      - draft_copy
+      - iteration
+
+  - id: phase_1_critique
+    name: "Chief Critique"
+    agent: copy-chief
+    action: critique
+    depends_on: [phase_0_draft]
+    description: "Copy Chief performs 8-point critique. Assigns scores, identifies fatal flaw, provides prioritized fix list with rewrite examples."
+    checkpoint:
+      gate: "Score >= 60% — approved for delivery"
+      veto: "Score < 40% after iteration 3 — escalate"
+    outputs:
+      - critique_report
+      - composite_score
+      - verdict
+      - fix_list
+
+  - id: phase_2_revision
+    name: "Specialist Revision"
+    agent: "{specialist}"
+    action: revise
+    depends_on: [phase_1_critique]
+    condition: "verdict != 'Elite' AND verdict != 'Strong' AND iteration < max_iterations"
+    description: "Specialist revises addressing all items in the fix list. Focus on fatal flaw first, then quick wins."
+    checkpoint:
+      gate: "All priority 1 fixes addressed"
+      veto: "Fatal flaw not addressed in revision"
+    outputs:
+      - revised_copy
+      - changes_made
+
+  - id: phase_3_final_review
+    name: "Final Review"
+    agent: copy-chief
+    action: final-review
+    depends_on: [phase_2_revision]
+    description: "Copy Chief performs final critique. Approve if passes threshold, escalate if max iterations reached."
+    checkpoint:
+      gate: "Score >= 60% OR max iterations reached with documented exceptions"
+      veto: "Score decreased between iterations — investigate root cause"
+    outputs:
+      - final_critique
+      - final_verdict
+
+iteration_rules:
+  on_pass: "Deliver final copy with critique report"
+  on_fail_under_max: "Return to phase_2 with updated fix list"
+  on_max_reached: "Approve with documented concerns OR escalate to user"
+  score_regression: "If score drops between iterations, halt and reassess"
+
+completion_criteria:
+  - "Copy achieves Strong or Elite verdict"
+  - "OR max iterations reached with all priority 1 fixes addressed"
+  - "Critique report delivered with every iteration documented"
+  - "Final copy marked as approved or escalated"

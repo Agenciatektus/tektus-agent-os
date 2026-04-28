@@ -1,0 +1,20 @@
+id: "squads/brand-narrative"
+name: "Brand Narrative Squad"
+description: "Pipeline de narrativa de marca. Constrói ecossistema completo: história de origem, stories de clientes, visão de futuro, manifesto cultural e apresentações."
+
+leader: "story-chief"
+pool: "../storytelling-pool/agents"
+
+members:
+  story-chief:
+    role: "Orchestrator — Diagnóstico & Routing"
+  park-howell:
+    role: "Core Brand Story (ABT Framework)"
+  marshall-ganz:
+    role: "Origin Story & Culture Manifesto (Story of Self/Us/Now)"
+  kindra-hall:
+    role: "Customer Stories (Value, Founder, Purpose, Customer)"
+  nancy-duarte:
+    role: "Future Vision & Presentations (Sparkline)"
+  oren-klaff:
+    role: "Pitch Support (Frame Control)"

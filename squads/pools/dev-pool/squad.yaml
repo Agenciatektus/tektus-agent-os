@@ -1,0 +1,63 @@
+squad:
+  id: devops
+  name: "DevOps & Engineering Squad"
+  version: "1.0.0"
+  description: |
+    Squad de engenharia avançada nativo da Tektus/Opensquad. Ele é composto por
+    orquestração arquitetural, design ultra premium focado em motion, UX científico,
+    blindagem cibernética, arquitetura de sistemas robusta, e a super agilidade
+    do Vibe Coding. Foge do código genérico e foca em engenharia de classe mundial.
+  pool: dev-pool
+  tracking_native: false
+
+agents:
+  orchestrator:
+    - id: tech-lead
+      role: orchestrator
+      description: "Planeja arquiteturas, decide stacks, orquestra e revisa a fluidez técnica dos projetos"
+
+  specialists:
+    - id: web-designer-elite
+      role: specialist
+      description: "Visual e motion premiums. Foge com veemência do 'genérico de ia' (Framer, GSAP, Tailwind+)"
+
+    - id: ui-ux-pro
+      role: specialist
+      description: "Arquitetura de usuário, conversão, heurísticas (Usa skill: ui-ux-pro-max)"
+
+    - id: backend-architect
+      role: specialist
+      description: "Domina Banco de Dados, APIs complexas, Serveless, Autenticação e Perf do sistema"
+
+    - id: security-expert
+      role: specialist
+      description: "Cyber segurança ofensiva, proteção OWASP 10 e blindagem de rotas e banco"
+
+    - id: vibe-coder
+      role: specialist
+      description: "Vibe coding na veia: Prototipação ultra-rápida AI-assisted, MVP na marra, shipping is a feature"
+
+pipelines:
+  - id: app-kickoff
+    trigger: "*app-kickoff"
+    description: "Setup robusto inicial de aplicativo / WebApp completo do zero."
+    path: squads/app-kickoff/pipeline/pipeline.yaml
+
+  - id: ui-revamp
+    trigger: "*ui-revamp"
+    description: "Transforma interfaces mortas em vitrines de luxo vibrantes com motion."
+    path: squads/ui-revamp/pipeline/pipeline.yaml
+
+  - id: security-audit
+    trigger: "*security-audit"
+    description: "Rotina paranoica de auditoria no repositório de clientes para encontrar brechas."
+    path: squads/security-audit/pipeline/pipeline.yaml
+
+  - id: vibe-sprint
+    trigger: "*vibe-sprint"
+    description: "Cria ferramentas, calculadoras, e MVPs em prazo impossível pra ontem através de flow AI."
+    path: squads/vibe-sprint/pipeline/pipeline.yaml
+
+metadata:
+  created: "2026-04-09"
+  source: "Dev Squad criado para abranger necessidades Tektus: Desde UI Wow-factor até Vibe Coding"

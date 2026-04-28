@@ -1,0 +1,63 @@
+workflow:
+  id: app-kickoff
+  name: "Dev Setup Inicial (App Kickoff)"
+  version: "1.0.0"
+  trigger: "*app-kickoff"
+  entry_agent: tech-lead
+  squad: app-kickoff
+  estimated_duration: "1 a 3 dias"
+  type: sequential
+  description: |
+    Setup limpo e robusto de um novo App. 
+    UI/UX desenha a wireframe lógica -> Web Designer aplica o visual premium -> 
+    Backend Architect desenha o server e bd -> Vibe Coder constrói o boilerplate/scaffolding baseado nisso.
+
+inputs:
+  - name: projeto_escopo
+    required: true
+    description: "Briefing do projeto (objetivos, telas chave, persona)"
+
+phases:
+  - id: phase_1_tech_spec
+    name: "Definição de Stack"
+    agent: tech-lead
+    depends_on: []
+    description: "Analisa o escopo e define as tecnologias pro Backend e Frontend."
+    outputs:
+      - tech_stack_doc: "markdown"
+
+  - id: phase_2_ux_wireflow
+    name: "Wireflow & Heurísticas"
+    agent: ui-ux-pro
+    depends_on: [phase_1_tech_spec]
+    description: "Cria o fluxo das telas focado em usabilidade."
+    outputs:
+      - user_journey_map: "markdown"
+
+  - id: phase_3_ui_premium
+    name: "Estética Elite"
+    agent: web-designer-elite
+    depends_on: [phase_2_ux_wireflow]
+    description: "Aplica o design final visual usando libraries premiums."
+    outputs:
+      - style_guide_premium: "markdown"
+
+  - id: phase_4_backend
+    name: "Modelagem Backend"
+    agent: backend-architect
+    depends_on: [phase_1_tech_spec] # Pode ocorrer paralelo com a UI
+    description: "Documenta os esquemas de BD e APIs necessárias."
+    outputs:
+      - db_schema: "markdown"
+      - api_docs: "markdown"
+
+  - id: phase_5_scaffold
+    name: "Scaffolding Vibe Coder"
+    agent: vibe-coder
+    depends_on: [phase_3_ui_premium, phase_4_backend]
+    description: "Gera o MVP 0.1 unindo o layout no front com as rotas mockadas."
+    outputs:
+      - github_repo_base: "link"
+
+completion_criteria:
+  - "Repositório ou Blueprint do código base entregue, com arquitetura sólida, UX de altíssima qualidade e design elite montado."

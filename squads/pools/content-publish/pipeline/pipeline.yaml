@@ -1,0 +1,65 @@
+id: "content-publish-pipeline"
+name: "Publicação & Agendamento"
+description: "Publica ou agenda conteúdo aprovado nas redes sociais. Adapta por plataforma, posta via Blotato/Instagram Publisher e confirma status."
+trigger: "*content-publish"
+estimated_duration: "10-20 min"
+type: sequential
+
+phases:
+  - id: phase_1_selection
+    name: "Seleção de Conteúdo"
+    agent: content-chief
+    action: select-content
+    description: "Seleciona os assets prontos e aprovados para publicação. Define quais plataformas receberão o post."
+    checkpoint:
+      gate: "Conteúdo confirmado como aprovado e pronto para publicar"
+      veto: "HALT se algum asset não passou pela revisão de qualidade"
+    outputs:
+      - selected_content
+      - target_platforms
+      - scheduled_datetime
+
+  - id: phase_2_adapt
+    name: "Adaptação Multi-plataforma"
+    agent: format-strategist
+    action: adapt-content
+    depends_on: [phase_1_selection]
+    description: "Ajusta copy e formato por rede social. IG caption ≠ LinkedIn post ≠ Tweet. Adapta hashtags, mentions e formatação."
+    checkpoint:
+      gate: "Versões adaptadas para cada plataforma-alvo"
+    outputs:
+      - adapted_copies
+      - platform_specs
+
+  - id: phase_3_publish
+    name: "Upload & Publicação"
+    agent: publisher
+    action: publish-content
+    depends_on: [phase_2_adapt]
+    description: "Faz upload de mídia, configura o post e publica ou agenda via Blotato (multi) ou Instagram Publisher (carrossel IG)."
+    checkpoint:
+      gate: "Post publicado ou agendado com status confirmado"
+      veto: "HALT se status retornar 'failed' — reportar erro e tentar novamente"
+    outputs:
+      - publication_status
+      - post_permalinks
+      - post_ids
+
+  - id: phase_4_confirm
+    name: "Confirmação & Log"
+    agent: publisher
+    action: confirm-publication
+    depends_on: [phase_3_publish]
+    description: "Verifica status final de cada publicação. Salva permalinks e IDs no log de publicações."
+    checkpoint:
+      gate: "Todos os posts confirmados como 'published' ou 'scheduled'"
+    outputs:
+      - publication_log
+      - confirmation_report
+
+completion_criteria:
+  - "Conteúdo aprovado selecionado para publicação"
+  - "Copy adaptada para cada plataforma-alvo"
+  - "Mídia uploaded com sucesso"
+  - "Post publicado ou agendado com status confirmado"
+  - "Permalinks e IDs registrados no log"

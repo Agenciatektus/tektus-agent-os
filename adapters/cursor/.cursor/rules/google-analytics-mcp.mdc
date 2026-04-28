@@ -1,0 +1,29 @@
+---
+description: >
+  Servidor MCP oficial (experimental) do Google Analytics — consultas GA4 (relatórios,
+  tempo real, propriedades, vínculos Google Ads). Ativar para métricas, auditoria de
+  tags via dados, e alinhamento com campanhas Google Ads.
+alwaysApply: false
+---
+
+# Google Analytics MCP (`google-analytics-mcp`)
+
+## Quando usar
+
+- Relatórios GA4 (eventos, dimensões, funis) sem abrir só a UI.
+- `list_google_ads_links` — vínculos entre propriedade GA4 e contas Google Ads.
+- `get_account_summaries` / `get_property_details` — inventário de contas e propriedades (ex.: propriedade Tektus vs cliente).
+- `run_realtime_report` — validação pós-deploy de medição.
+
+## O que não substitui
+
+- Criação de propriedade GA4, fluxos de dados, GTM ou tags no site — isso continua manual ou pelos seus guias internos de tracking.
+
+## Referência
+
+- Repositório oficial: [googleanalytics/google-analytics-mcp](https://github.com/googleanalytics/google-analytics-mcp)
+- Instalação e credenciais (ADC, APIs GCP): [.cursor/docs/MCP_GOOGLE_ANALYTICS.md](../docs/MCP_GOOGLE_ANALYTICS.md)
+
+## Permissões OAuth
+
+O utilizador usado em `gcloud auth application-default login` (ou service account) precisa de acesso de leitura às propriedades GA4 (`https://www.googleapis.com/auth/analytics.readonly`).

@@ -1,0 +1,38 @@
+workflow:
+  id: vibe-sprint
+  name: "Prototipagem Vibe Coding (Vibe Sprint)"
+  version: "1.0.0"
+  trigger: "*vibe-sprint"
+  entry_agent: vibe-coder
+  squad: vibe-sprint
+  estimated_duration: "1 a 4 horas"
+  type: sequential
+  description: |
+    O pipeline do *Shipping*. Oposto perfeito do App Kickoff que planeja,
+    aqui o Vibe Coder constrói no feeling, codifica um index.html único pra Landing 
+    Page ou sobe um widget React rapidão porque o lançamento do cliente Tektus é AMANHÃ.
+
+inputs:
+  - name: the_vibe
+    required: true
+    description: "Vibe / Ideia Central do que a gente tá construindo."
+
+phases:
+  - id: phase_1_raw_coding
+    name: "AI Fast Coding"
+    agent: vibe-coder
+    depends_on: []
+    description: "Usa de imediato componentes Tailwind CSS crus e IA generativa para gerar código front+logica."
+    outputs:
+      - raw_mvp_code: "code"
+
+  - id: phase_2_sanity_check
+    name: "Sanity Check (Opcional)"
+    agent: tech-lead
+    depends_on: [phase_1_raw_coding]
+    description: "Valida rapidamente se o MVP tem alguma quebra grossa."
+    outputs:
+      - validacao: "bool"
+
+completion_criteria:
+  - "Entregável hospedado ou Zip com index gerado no mesmo dia."

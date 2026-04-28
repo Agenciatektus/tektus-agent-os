@@ -1,0 +1,45 @@
+workflow:
+  id: ui-revamp
+  name: "Revolução Visual (UI Revamp)"
+  version: "1.0.0"
+  trigger: "*ui-revamp"
+  entry_agent: web-designer-elite
+  squad: ui-revamp
+  estimated_duration: "1 a 2 dias"
+  type: sequential
+  description: |
+    Workflow de pura mágica visual. Pega um painel ou webapp existente e feio
+    e converte numa peça de arte premiada do Awwwards usando UI modernas e interativas.
+
+inputs:
+  - name: codigo_fonte
+    required: true
+    description: "Link do repositório ou arquivo principal frontend"
+
+phases:
+  - id: phase_1_visual_magic
+    name: "Ação Elevada do Elite"
+    agent: web-designer-elite
+    depends_on: []
+    description: "Injeta estilo pesado e limpo. Usa bibliotecas de motion, limpa o código css verboso."
+    outputs:
+      - ui_components_updated: "markdown"
+
+  - id: phase_2_ux_audit
+    name: "Auditoria de Quebras UX"
+    agent: ui-ux-pro
+    depends_on: [phase_1_visual_magic]
+    description: "Verifica se as animações estão prejudicando a fluidez para usuários padrão (A11y)."
+    outputs:
+      - a11y_feedback: "markdown"
+
+  - id: phase_3_tech_merge
+    name: "Merge Final"
+    agent: tech-lead
+    depends_on: [phase_2_ux_audit]
+    description: "Finaliza o pacote atualizado e confirma as dependencias no package.json (framer-motion, etc)"
+    outputs:
+      - pull_request_ready: "bool"
+
+completion_criteria:
+  - "Visual completamente re-imaginado sem quebrar a lógica de UI central."

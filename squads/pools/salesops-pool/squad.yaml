@@ -1,0 +1,72 @@
+squad:
+  id: salesops
+  name: "SalesOps Squad"
+  version: "1.0.0"
+  description: |
+    Squad de CRM & Operações de Venda da Tektus. Integrado à VerDash para leitura
+    de contexto e criação de tarefas. O Head Comercial orquestra todos os especialistas.
+    Focado em: geração de leads, scripts de vendas, estrutura de CRM, engenharia de
+    oferta, precificação e retenção de clientes.
+  pool: salesops-pool
+  tracking_native: true
+
+agents:
+  orchestrator:
+    - id: head-comercial
+      role: orchestrator
+      description: "Lê contexto do cliente na VerDash, diagnostica, delega e cria tarefas no CRM"
+
+  specialists:
+    - id: hormozi-chief
+      role: diagnostician
+      description: "Diagnóstico completo de negócio e roteamento para framework Hormozi correto"
+
+    - id: hormozi-closer
+      role: specialist
+      description: "Framework CLOSER, scripts de venda, tratamento de objeções, redução de no-shows"
+
+    - id: hormozi-leads
+      role: specialist
+      description: "Core 4 lead generation, lead magnets, estratégia de aquisição por canal"
+
+    - id: hormozi-offers
+      role: specialist
+      description: "Grand Slam Offers, Value Equation, bonus stacking, engenharia de garantias"
+
+    - id: hormozi-pricing
+      role: specialist
+      description: "Precificação baseada em valor, posicionamento premium, price-to-value discrepancy"
+
+    - id: hormozi-retention
+      role: specialist
+      description: "Redução de churn, onboarding, LTV, sistemas de engajamento e reativação"
+
+    - id: hormozi-crm
+      role: specialist
+      description: "Configuração de pipeline, automações de follow-up, campos, etiquetas e diagnóstico de funil"
+
+pipelines:
+  - id: crm-setup
+    trigger: "*crm-setup"
+    description: "Setup completo de CRM para novo cliente"
+    path: squads/crm-setup/pipeline/pipeline.yaml
+
+  - id: sales-sprint
+    trigger: "*sales-sprint"
+    description: "Sprint quinzenal de otimização comercial"
+    path: squads/sales-sprint/pipeline/pipeline.yaml
+
+  - id: lead-pipeline
+    trigger: "*lead-pipeline"
+    description: "Diagnóstico e estruturação de geração de leads"
+    path: squads/lead-pipeline/pipeline/pipeline.yaml
+
+metadata:
+  created: "2026-04-09"
+  source: "Migrado do hormozi-squad legado (xquads-squads) + novos agentes VerDash-nativos"
+  tektus_docs_integration: true
+  crm_integration:
+    crm_read: true
+    crm_write: true
+    task_creation: true
+    context_documents: ["ICP", "planos_e_pricing", "jornada_comercial", "servicos_e_entregas"]

@@ -1,0 +1,91 @@
+id: "content-production-pipeline"
+name: "Produção de Conteúdo Individual"
+description: "Produz um conteúdo do zero ao asset final. Cobre briefing, copy, produção visual, edição de vídeo e revisão de qualidade."
+trigger: "*content-production"
+estimated_duration: "30-90 min"
+type: sequential
+
+phases:
+  - id: phase_1_briefing
+    name: "Briefing da Peça"
+    agent: content-chief
+    action: create-brief
+    description: "Define tema, formato, plataforma, referências visuais, tom de voz e objetivo."
+    checkpoint:
+      gate: "Briefing individual completo com formato, plataforma e objetivo definidos"
+      veto: "HALT se o formato não estiver especificado"
+    outputs:
+      - content_brief
+      - format_spec
+      - reference_assets
+
+  - id: phase_2_copy
+    name: "Redação & Roteiro"
+    agent: content-writer
+    action: write-content
+    depends_on: [phase_1_briefing]
+    description: "Escreve a copy: legenda, texto de carrossel, roteiro de vídeo, hooks e CTAs. Convoca Copy Squad ou Storytelling Squad se necessário."
+    checkpoint:
+      gate: "Texto finalizado com hook, corpo e CTA"
+      veto: "HALT se o hook não estiver definido"
+    outputs:
+      - copy_draft
+      - video_script
+      - caption
+
+  - id: phase_3_visual
+    name: "Produção Visual"
+    agent: visual-producer
+    action: create-visuals
+    depends_on: [phase_2_copy]
+    description: "Cria os assets visuais: slides de carrossel, post estático, thumbnail. Usa image-creator (HTML/CSS), Canva ou AI image generator."
+    checkpoint:
+      gate: "Assets visuais produzidos nas dimensões corretas"
+      veto: "HALT se a legibilidade no mobile estiver comprometida (fontes < 20px)"
+    outputs:
+      - visual_assets
+      - slide_files
+
+  - id: phase_4_video
+    name: "Edição de Vídeo (se aplicável)"
+    agent: video-editor
+    action: edit-video
+    depends_on: [phase_3_visual]
+    description: "Se o formato é vídeo: monta composição Remotion com legendas, transições e motion. Pula esta fase se o formato é estático."
+    conditional: "format_spec.type == 'video'"
+    checkpoint:
+      gate: "Vídeo renderizado em resolução final com legendas"
+    outputs:
+      - rendered_video
+      - video_thumbnail
+
+  - id: phase_5_review
+    name: "Revisão de Qualidade"
+    agent: content-chief
+    action: review-content
+    depends_on: [phase_3_visual, phase_4_video]
+    description: "Valida tom de voz, brand consistency, CTAs, dimensões e qualidade geral. Solicita correções se necessário."
+    checkpoint:
+      gate: "Conteúdo aprovado sem pendências"
+      veto: "HALT se houver inconsistência com brand voice ou erros visuais evidentes"
+    outputs:
+      - approved_content
+      - final_assets
+
+  - id: phase_6_delivery
+    name: "Entrega Final"
+    agent: content-chief
+    action: deliver-assets
+    depends_on: [phase_5_review]
+    description: "Exporta assets finais organizados por plataforma, prontos para publicação."
+    outputs:
+      - deliverable_package
+      - publication_instructions
+
+completion_criteria:
+  - "Briefing completo com formato, plataforma e objetivo"
+  - "Copy finalizada com hook forte e CTA claro"
+  - "Assets visuais nas dimensões corretas e legíveis no mobile"
+  - "Vídeo com legendas (se aplicável)"
+  - "Conteúdo aprovado pelo Content Chief"
+  - "Assets entregues prontos para publicação"

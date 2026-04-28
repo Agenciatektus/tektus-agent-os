@@ -1,0 +1,22 @@
+squad: "mapeamento-processos"
+version: "1.0.0"
+
+checkpoints:
+  - id: step-01-checkpoint-inicio
+    name: "Definição do Processo"
+    description: "Informa qual processo será mapeado hoje."
+  - id: step-05-checkpoint-salvar
+    name: "Aprovação Final"
+    description: "Revisa e aprova o Playbook gerado antes de finalizar a pipeline."
+
+steps:
+  - id: step-01-checkpoint-inicio
+    file: "steps/step-01-checkpoint-inicio.md"
+  - id: step-02-ivan-entrevista
+    file: "steps/step-02-ivan-entrevista.md"
+  - id: step-03-patricia-playbook
+    file: "steps/step-03-patricia-playbook.md"
+  - id: step-04-renato-revisor
+    file: "steps/step-04-renato-revisor.md"
+  - id: step-05-checkpoint-salvar
+    file: "steps/step-05-checkpoint-salvar.md"

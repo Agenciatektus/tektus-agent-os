@@ -1,0 +1,20 @@
+id: "squads/design-system-creation"
+name: "Design System Creation Squad"
+description: "Pipeline de criação de design system. Da auditoria de interface à definição de tokens, componentes atomic design, governança e lançamento."
+
+leader: "design-chief"
+pool: "../design-pool/agents"
+
+members:
+  design-chief:
+    role: "Orchestrator & Review Final"
+  brad-frost:
+    role: "Atomic Design Methodology, Audit & Component Building"
+  design-system-architect:
+    role: "Token Architecture & Implementation"
+  dan-mall:
+    role: "Governance, Documentation & Adoption"
+  dave-malouf:
+    role: "DesignOps & Launch Support"
+  ui-engineer:
+    role: "Component Implementation Support"

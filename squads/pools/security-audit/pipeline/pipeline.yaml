@@ -1,0 +1,45 @@
+workflow:
+  id: security-audit
+  name: "Auditoria Cibernética (Security Audit)"
+  version: "1.0.0"
+  trigger: "*security-audit"
+  entry_agent: tech-lead
+  squad: security-audit
+  estimated_duration: "1 a 3 dias"
+  type: sequential
+  description: |
+    Processo metódico e chato (mas importante) de rasgar um código para ver
+    se ele cede à pressões externas. 
+
+inputs:
+  - name: repositorio
+    required: true
+    description: "Link/Zip ou caminho do código fonte para auditar"
+
+phases:
+  - id: phase_1_surface_mapping
+    name: "Mapeamento da Superfície"
+    agent: backend-architect
+    depends_on: []
+    description: "Lista todas as API rotas, portas abertas e Auth Layers do código."
+    outputs:
+      - api_surface_map: "markdown"
+
+  - id: phase_2_pentest_code
+    name: "Auditoria Estática"
+    agent: security-expert
+    depends_on: [phase_1_surface_mapping]
+    description: "Usa o mapa de APIs para tentar 'hackear' o sistema estatiscamente."
+    outputs:
+      - vulnerability_report: "markdown"
+
+  - id: phase_3_patch
+    name: "Correções (Patches)"
+    agent: tech-lead
+    depends_on: [phase_2_pentest_code]
+    description: "Gera as issues de Github / Tarefas VerDash com base no Report."
+    outputs:
+      - task_list: "markdown"
+
+completion_criteria:
+  - "Relatório detalhado de vulnerabilidade com Proof of Concept para cada falha gerado."

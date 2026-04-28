@@ -1,0 +1,18 @@
+squad: "traffic-audit"
+version: "1.0.0"
+title: "Traffic Masters: Auditoria de Contas"
+
+description: >
+  Pipeline focado na auditoria forense de contas de anúncios Meta e Google.
+  Ideal para diagnóstico de baixo desempenho e wasted spend correlacionando
+  vendas com o ecossistema SaaS VerDash.
+
+skills: []
+
+data: []
+
+agents:
+  - id: "squads/traffic-masters-pool/agents/aline-analista"
+  - id: "squads/traffic-masters-pool/agents/pedro-pixel"
+  - id: "squads/traffic-masters-pool/agents/fabio-fiscal"
+  - id: "squads/traffic-masters-pool/agents/tiago-traffic-chief"

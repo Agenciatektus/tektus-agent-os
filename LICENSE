@@ -1,0 +1,43 @@
+MIT License
+
+Copyright (c) 2026 Tektus Agência de Marketing Digital — https://tektus.com.br
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Third-party content
+
+This repository bundles or references skills from upstream sources that retain
+their original licenses. See `docs/credits.md` for the full list. Notable:
+
+- **WordPress agent-skills** (`skills/wp-performance`, `skills/wp-plugin-development`,
+  `skills/wp-rest-api`) — license unspecified upstream (NOASSERTION); presumed
+  GPL-compatible. Consult the upstream repo before redistribution.
+- **Anthropic skills** (`skills/mcp-builder`, `skills/canvas-design`,
+  `skills/web-artifacts-builder`) — see each skill's `LICENSE.txt`.
+- **Google Workspace skills** (`skills/gws-*`) — Apache-2.0.
+- **Supabase skills** (`skills/supabase`, `skills/supabase-postgres-best-practices`) — MIT.
+- **Stripe skills** (`skills/stripe-best-practices`, `skills/upgrade-stripe`) — MIT.
+- **n8n-skills** (`skills/n8n-*`) — MIT (czlonkowski/n8n-skills).
+- **Callstack github skill** — MIT.
+
+Tektus original work (rules, squads, custom skills like `humanizer`,
+`marketing-expert`, `ui-ux-pro-max` integration, `template-designer`, etc.) is
+licensed under MIT as stated above.

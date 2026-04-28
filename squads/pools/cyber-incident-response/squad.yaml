@@ -1,0 +1,24 @@
+id: "squads/cyber-incident-response"
+name: "Incident Response Squad"
+description: "Squad dedicado a Resposta de Incidentes (IR) seguindo o framework NIST 800-61. Focado em triagem, contenção e recuperação."
+
+# Orquestrador local para Incident Response
+leader: "omar-santos"
+
+# Pool compartilhado
+pool: "../cybersecurity-pool/agents"
+
+# Membros explícitos para o Pipeline
+members:
+  omar-santos:
+    role: "IR Coordinator & Triage"
+  cyber-chief:
+    role: "C-Level Communication & Oversight"
+  chris-sanders:
+    role: "Packet Analysis & Forensic Support"
+  marcus-carey:
+    role: "Threat Intelligence & Lessons Learned"
+  command-generator:
+    role: "Containment Operations Syntax"
+
+# Outros agentes ficam on-call no pool, mas podem ser invocados pelo omar-santos.

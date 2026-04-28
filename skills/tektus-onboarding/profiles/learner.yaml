@@ -1,0 +1,41 @@
+name: learner
+description: Student / developer learning the agentic-coding paradigm.
+
+triggers:
+  use_case: learning
+  typical_languages: [pt-br, en, es]
+
+squads_to_install:
+  - pools/dev-pool
+  - c-level/cto
+  - c-level/ceo
+  - c-level/cmo
+  - c-level/cgo
+  - c-level/coo
+  - c-level/cdo
+  - internal/cyber-security  # exposure to all squad types
+
+skills_to_activate:
+  - workspace-state
+  - context-lens
+  - openclaw-skills-skill-vetter
+  - openclaw-skills-self-improving-agent
+  - opensquad-skill-creator  # for hands-on learning
+
+best_practices_to_load:
+  - copywriting
+  - secure-coding
+  - token-economy
+  - technical-writing
+  - review
+  - strategist
+
+starter_prompts_en:
+  - "Walk me through how this OS decides which squad to invoke."
+  - "Show me an example of creating a new skill from scratch."
+  - "Explain the ODP protocol with a real example."
+
+starter_prompts_pt_br:
+  - 'Me explique como esse OS decide qual squad invocar.'
+  - 'Mostre um exemplo de criação de uma skill nova do zero.'
+  - 'Explique o protocolo ODP com um exemplo real.'

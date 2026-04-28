@@ -1,0 +1,4 @@
+id,name,title,path
+"squads/mapeamento-processos/agents/ivan-interrogador","Ivan Interrogador","Pesquisador Operacional","./agents/ivan-interrogador.agent.md"
+"squads/mapeamento-processos/agents/patricia-playbook","Patricia Playbook","Arquiteta de Sistematização","./agents/patricia-playbook.agent.md"
+"squads/mapeamento-processos/agents/renato-revisor","Renato Revisor","Controle de Qualidade","./agents/renato-revisor.agent.md"

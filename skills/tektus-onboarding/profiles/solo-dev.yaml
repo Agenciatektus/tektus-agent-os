@@ -1,0 +1,47 @@
+name: solo-dev
+description: Individual developer — code review, security, productivity.
+
+triggers:
+  use_case: solo-dev
+  typical_languages: [en, pt-br]
+
+squads_to_install:
+  - internal/cyber-security
+  - pools/dev-pool
+  - pools/dev-feature-design
+  - pools/ui-revamp
+  - pools/vibe-sprint
+  - c-level/cto
+
+skills_to_activate:
+  - github
+  - mcp-builder
+  - workspace-state
+  - context-lens
+  - openclaw-skills-skill-vetter
+  - openclaw-skills-self-improving-agent
+
+best_practices_to_load:
+  - secure-coding
+  - token-economy
+  - technical-writing
+  - review
+
+# By stack — auto-add:
+stack_skills:
+  wordpress: [wp-performance, wp-plugin-development, wp-rest-api]
+  supabase: [supabase, supabase-postgres-best-practices]
+  stripe: [stripe-best-practices, upgrade-stripe]
+  n8n: [n8n-code-javascript, n8n-expression-syntax, n8n-mcp-tools-expert, n8n-node-configuration, n8n-validation-expert, n8n-workflow-patterns]
+  react: [ui-ux-pro-max]
+  nextjs: [ui-ux-pro-max, web-artifacts-builder]
+
+starter_prompts_en:
+  - "Audit the auth flow in src/auth/ for security issues."
+  - "Help me design an MCP server for our internal API."
+  - "Review my latest commit before I push."
+
+starter_prompts_pt_br:
+  - 'Audite o fluxo de auth em src/auth/ procurando por vulnerabilidades.'
+  - 'Me ajude a desenhar um MCP server para nossa API interna.'
+  - 'Revise meu último commit antes do push.'

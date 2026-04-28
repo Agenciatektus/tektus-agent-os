@@ -1,0 +1,26 @@
+squad: "traffic-launch"
+version: "1.0.0"
+
+checkpoints:
+  - id: step-01-briefing
+    name: "Briefing de Novo Negócio"
+    description: "Insira o contexto do cliente (Produto, Ticket, Diferencial, Orçamento)."
+  - id: step-07-revisao-geral
+    name: "Pack de Lançamento Tático"
+    description: "Revisar todos os outputs estruturais gerados antes de despachar."
+
+steps:
+  - id: step-01-briefing
+    file: "steps/step-01-briefing.md"
+  - id: step-02-tiago-chief
+    file: "steps/step-02-tiago-chief.md"
+  - id: step-03-pedro-pixel
+    file: "steps/step-03-pedro-pixel.md"
+  - id: step-04-cassiano-criativo
+    file: "steps/step-04-cassiano-criativo.md"
+  - id: step-05-marcos-meta
+    file: "steps/step-05-marcos-meta.md"
+  - id: step-06-gabriel-google
+    file: "steps/step-06-gabriel-google.md"
+  - id: step-07-revisao-geral
+    file: "steps/step-07-revisao-geral.md"

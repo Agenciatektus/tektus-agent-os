@@ -1,0 +1,32 @@
+name: contributor
+description: Open-source contributor working on Tektus Agent OS itself or related repos.
+
+triggers:
+  use_case: open-source
+
+squads_to_install:
+  - pools/dev-pool
+  - pools/copy-review
+  - internal/cyber-security  # mandatory for skill-vetting PRs
+
+skills_to_activate:
+  - github
+  - workspace-state
+  - context-lens
+  - openclaw-skills-skill-vetter
+  - openclaw-skills-self-improving-agent
+  - opensquad-skill-creator
+  - opensquad-agent-creator
+  - mcp-builder
+
+best_practices_to_load:
+  - secure-coding
+  - token-economy
+  - technical-writing
+  - review
+  - copywriting
+
+starter_prompts_en:
+  - "Review my new skill against the skill-vetter checklist."
+  - "Help me draft a CONTRIBUTING-compatible PR description."
+  - "Audit the mcp-builder skill output for completeness."

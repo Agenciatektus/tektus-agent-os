@@ -1,0 +1,57 @@
+name: agency
+description: Marketing agency operations — content production, copy, brand, multi-client.
+
+triggers:
+  use_case: agency
+  typical_languages: [pt-br, en, es]
+
+squads_to_install:
+  - pools/content-production
+  - pools/content-publish
+  - pools/content-calendar
+  - pools/copy-squad-pool
+  - pools/copy-project
+  - pools/copy-review
+  - pools/brand-creation
+  - pools/brand-narrative
+  - pools/brand-pool
+  - pools/storytelling-pool
+  - pools/design-pool
+  - c-level/cmo
+  - c-level/cgo
+  - internal/cyber-security  # always-on for compliance
+
+skills_to_activate:
+  - marketing-expert
+  - humanizer  # if pt-br
+  - template-designer
+  - image-creator
+  - image-fetcher
+  - image-ai-generator
+  - instagram-publisher
+  - blotato
+  - canva
+  - resend
+  - apify
+
+best_practices_to_load:
+  - copywriting
+  - strategist
+  - instagram-feed
+  - instagram-reels
+  - instagram-stories
+  - linkedin-post
+  - email-newsletter
+  - email-sales
+  - blog-post
+  - blog-seo
+
+starter_prompts_pt_br:
+  - 'Faça um plano editorial de 30 dias para Instagram do cliente X (nicho: <setor>).'
+  - 'Escreva 3 variações de copy para anúncio Meta com foco em conversão.'
+  - 'Revise este briefing do cliente e identifique gaps antes de iniciarmos.'
+
+starter_prompts_en:
+  - "Plan a 30-day Instagram editorial calendar for client X (niche: <industry>)."
+  - "Write 3 ad copy variations for a Meta campaign focused on conversion."
+  - "Review this client brief and flag gaps before we start."

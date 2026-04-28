@@ -1,0 +1,38 @@
+squad:
+  id: sales-sprint
+  name: "Sales Sprint Squad"
+  version: "1.0.0"
+  description: |
+    Squad operacional de sprint quinzenal de otimização comercial.
+    Lê dados do CRM VerDash, diagnostica o gargalo e executa ação corretiva.
+    Usa routing dinâmico baseado no diagnóstico do Hormozi Chief.
+  pool: salesops-pool
+  tracking_native: true
+  cadence: "Quinzenal (repetível)"
+
+members:
+  - role: orchestrator
+    agent: head-comercial
+    responsibilities:
+      - "Leitura do CRM VerDash (funil, leads parados, métricas)"
+      - "Criação de tarefas para a próxima quinzena"
+      - "Geração do relatório de sprint"
+
+  - role: diagnostician
+    agent: hormozi-chief
+    responsibilities:
+      - "Identificar o maior gargalo comercial da quinzena"
+      - "Mapear para framework Hormozi e selecionar especialista"
+
+  - role: dynamic_specialist
+    routing: true
+    agents:
+      - hormozi-leads
+      - hormozi-closer
+      - hormozi-offers
+      - hormozi-pricing
+      - hormozi-retention
+      - hormozi-crm
+    responsibilities:
+      - "Executar ação corretiva específica para o gargalo identificado"
+      - "Entregar entregável concreto e implementável"

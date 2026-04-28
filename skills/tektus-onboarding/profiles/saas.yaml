@@ -1,0 +1,50 @@
+name: saas
+description: SaaS team — product engineering, security, ops, growth.
+
+triggers:
+  use_case: saas
+  typical_languages: [en]
+
+squads_to_install:
+  - internal/cyber-security
+  - pools/dev-pool
+  - pools/dev-feature-design
+  - pools/ui-revamp
+  - pools/sales-sprint
+  - pools/sales-lead-pipeline
+  - pools/traffic-launch
+  - pools/cyber-pentest
+  - c-level/cto
+  - c-level/cmo
+  - c-level/cgo
+  - c-level/coo
+
+skills_to_activate:
+  - github
+  - mcp-builder
+  - workspace-state
+  - context-lens
+  - openclaw-skills-skill-vetter
+  - openclaw-skills-self-improving-agent
+  - resend
+
+best_practices_to_load:
+  - secure-coding
+  - token-economy
+  - technical-writing
+  - review
+  - data-analysis
+  - copywriting
+  - strategist
+
+stack_skills:
+  supabase: [supabase, supabase-postgres-best-practices]
+  stripe: [stripe-best-practices, upgrade-stripe]
+  react: [ui-ux-pro-max]
+  nextjs: [ui-ux-pro-max, web-artifacts-builder]
+  n8n: [n8n-workflow-patterns, n8n-mcp-tools-expert]
+
+starter_prompts_en:
+  - "Audit the Stripe integration for restricted-key best practices."
+  - "Plan a quarterly security pentest of our Supabase RLS policies."
+  - "Draft a launch announcement for v2 of the API."

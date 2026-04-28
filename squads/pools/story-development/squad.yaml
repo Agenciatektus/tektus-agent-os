@@ -1,0 +1,28 @@
+id: "squads/story-development"
+name: "Story Development Squad"
+description: "Pipeline de desenvolvimento de história. Do conceito bruto à seleção de framework, design estrutural, draft, análise Story Grid e polish."
+
+leader: "story-chief"
+pool: "../storytelling-pool/agents"
+
+members:
+  story-chief:
+    role: "Orchestrator — Diagnóstico, Framework Selection & Final Review"
+  joseph-campbell:
+    role: "Hero's Journey Framework (quando roteado)"
+  blake-snyder:
+    role: "Save the Cat! Framework (quando roteado)"
+  dan-harmon:
+    role: "Story Circle Framework (quando roteado)"
+  shawn-coyne:
+    role: "Story Grid Analysis — Sempre executa a análise"
+  matthew-dicks:
+    role: "Detail & Emotion Support (Storyworthy)"
+  kindra-hall:
+    role: "Relatability Support"
+
+# Routing dinâmico:
+# story-chief seleciona o framework specialist baseado no gênero:
+#   Épico/Aventura/Transformação → joseph-campbell (Hero's Journey)
+#   Comercial/Entretenimento/Estrutura clara → blake-snyder (Save the Cat!)
+#   Narrativa circular/Character-driven → dan-harmon (Story Circle)

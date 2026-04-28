@@ -1,0 +1,19 @@
+squad: "traffic-launch"
+version: "1.0.0"
+title: "Traffic Masters: Lançamento Global"
+
+description: >
+  Pipeline para lançamento on-boarding de um novo cliente de tráfego, 
+  desde setup mental do GTM e Scripts criativos até emissão do plano tático
+  de Google e Meta.
+
+skills: []
+
+data: []
+
+agents:
+  - id: "squads/traffic-masters-pool/agents/tiago-traffic-chief"
+  - id: "squads/traffic-masters-pool/agents/pedro-pixel"
+  - id: "squads/traffic-masters-pool/agents/cassiano-criativo"
+  - id: "squads/traffic-masters-pool/agents/gabriel-google"
+  - id: "squads/traffic-masters-pool/agents/marcos-meta"

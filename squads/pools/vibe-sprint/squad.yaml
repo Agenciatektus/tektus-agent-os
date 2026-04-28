@@ -1,0 +1,19 @@
+squad:
+  id: vibe-sprint
+  name: "Vibe Sprint Squad"
+  version: "1.0.0"
+  description: |
+    O caos controlado. O objetivo não é abstração OOP ou testes E2E, o objetivo
+    é enviar (Shipping) a funcionalidade pra produção num dia com uso intenso de IA.
+  pool: dev-pool
+
+members:
+  - role: orchestrator
+    agent: tech-lead
+    responsibilities:
+      - "Garante que o Vibe Coder não quebre as leis da física (ou do banco)."
+
+  - role: vibe_machine
+    agent: vibe-coder
+    responsibilities:
+      - "Faz a aplicação surgir do vazio baseado numa 'vibe' ou texto de 1 linha."

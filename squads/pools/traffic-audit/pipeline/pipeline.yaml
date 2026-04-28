@@ -1,0 +1,24 @@
+squad: "traffic-audit"
+version: "1.0.0"
+
+checkpoints:
+  - id: step-01-checkpoint-entrada
+    name: "Dados e Prints de Auditoria"
+    description: "Insira os dados brutos da campanha para o time avaliar o ROAS perdido."
+  - id: step-06-checkpoint-saida
+    name: "Plano de Intervenção Finalizado"
+    description: "Revisar as podas financeiras sugeridas e aprovar as mudanças operacionais."
+
+steps:
+  - id: step-01-checkpoint-entrada
+    file: "steps/step-01-checkpoint-entrada.md"
+  - id: step-02-aline-analista
+    file: "steps/step-02-aline-analista.md"
+  - id: step-03-pedro-pixel
+    file: "steps/step-03-pedro-pixel.md"
+  - id: step-04-fabio-fiscal
+    file: "steps/step-04-fabio-fiscal.md"
+  - id: step-05-tiago-chief
+    file: "steps/step-05-tiago-chief.md"
+  - id: step-06-checkpoint-saida
+    file: "steps/step-06-checkpoint-saida.md"
