@@ -46,7 +46,7 @@ Mostrar os slides EM TEXTO numerados + estilo sugerido. Perguntar: "Aprova ou aj
 python skills/carrossel-tweet/scripts/build_tweet_slides.py <slides.json> <pasta-saida> [estilo]
 
 # 2. renderizar (máquina local — pipeline canônico):
-cd "Tektus/02-Portfolio-Clientes/Finflow/brand/04-marca-aplicada/instagram/_html"
+cd "<pasta-do-cliente>/brand/04-marca-aplicada/instagram/_html"
 node render-external.mjs "<pasta-saida-absoluta>"
 
 # Fallback (ambiente sem o node_modules local, ex. sandbox):

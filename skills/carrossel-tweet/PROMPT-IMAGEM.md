@@ -48,7 +48,7 @@ na faixa. NÃO incluir nenhum outro texto, marca, logo ou watermark além da fra
 
 ```bash
 python skills/carrossel-tweet/scripts/build_tweet_slides.py "<pasta-post>/slides.json" "<pasta-post>"
-cd "Tektus/02-Portfolio-Clientes/Finflow/brand/04-marca-aplicada/instagram/_html"
+cd "<pasta-do-cliente>/brand/04-marca-aplicada/instagram/_html"
 node render-external.mjs "<pasta-post-absoluta>" "tweet-01-feed.html"
 ```
 

@@ -94,4 +94,4 @@ Estrutura mínima de cada documento (adaptar nome da controladora/operadora por 
 
 ## Sincronização Cross-IDE
 
-Skill central em `skills/lgpd-saas/` (lida por Claude/Cursor/Antigravity). Squad de execução: `SquadAgency/squads/Internal/LGPD-Privacidade/` (a criar). Ver regra `.claude/rules/11-sincronizacao-cross-ide.md`.
+Skill central em `skills/lgpd-saas/`, lida pelos três IDEs. O squad de execução correspondente é o `LGPD-Privacidade`, em `squads/internal/`. A sincronização entre adapters segue a regra `11-cross-ide-sync`.
