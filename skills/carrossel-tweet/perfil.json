@@ -1,0 +1,7 @@
+{
+  "nome": "Peterson Machado",
+  "handle": "@_petermachado",
+  "verificado": true,
+  "avatar": "assets/avatar.jpg",
+  "_nota": "Editar 1x: handle do perfil onde os carrosseis serao postados. Se assets/avatar.jpg nao existir, o gerador usa circulo com iniciais automaticamente. Pra usar foto: salvar um quadrado (min 400x400) em skills/carrossel-tweet/assets/avatar.jpg"
+}

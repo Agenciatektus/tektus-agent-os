@@ -4,6 +4,31 @@ All notable changes to Tektus Agent OS will be documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/).
 
+## [Unreleased] — Extração de skills Tektus (2026-08-18)
+
+### Added — 14 skills do monorepo interno
+
+Skills genéricas que estavam apenas no repositório interno da agência e agora
+fazem parte do Agent OS público:
+
+- `humanizer` — passe final em PT-BR para reduzir marcas de texto gerado por IA
+- `lgpd-saas` — auditoria e adequação LGPD para SaaS e landing pages (Brasil)
+- `apify`, `blotato`, `canva`, `resend`, `instagram-publisher` — integrações de API
+- `image-creator`, `image-fetcher`, `image-ai-generator` — geração e captura de imagem
+- `template-designer` — identidade visual consistente por squad
+- `carrossel-tweet` — carrossel a partir de thread
+- `opensquad-agent-creator`, `opensquad-skill-creator` — criação de agentes e skills
+
+### Deliberadamente fora desta extração
+
+- `meta-funnel-builder` e `analise-conta-midia-cliente` — carregam identificadores
+  de infraestrutura e de conta da Tektus (IP de VPS, `agencia_id`, nomes de
+  container, referência a `meta_credentials`). Precisam de sanitização dedicada
+  antes de virem para um repositório público.
+- `ui-ux-pro-max` — código de terceiro, upstream em
+  [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill),
+  sem arquivo de licença do nosso lado. Instale a partir do upstream.
+
 ## [Unreleased] — Paid Traffic 2026 specialization + Meta Ads analysis layer
 
 ### Added (Meta Ads Analyzer — 2026-04-28)
