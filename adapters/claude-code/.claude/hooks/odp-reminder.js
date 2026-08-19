@@ -53,6 +53,34 @@ Before answering, declare explicitly which tools you will use:
     + app-kickoff, crm-setup, mapeamento-processos, story-development,
       storytelling-pool, ui-revamp, vibe-sprint, wp-automation
 
+⚡ HIERARQUIA OBRIGATÓRIA: SQUAD ANTES DE SKILL
+  Quando o pedido envolve copy / conteúdo / branding / storytelling, INVOCAR
+  SQUAD primeiro — não pular pra skill marketing-expert. Os pools têm
+  especialistas profundos (22 copywriters lendários, 10+ branding legends,
+  10+ storytellers) que produzem output melhor que skill genérica.
+
+  • Copy persuasivo / sales letter / VSL / email → squad copy-project
+    (Copy Chief roteia entre 22 specialists: Halbert, Schwartz, Hopkins,
+    Ogilvy, Sugarman, Kennedy, Kern, Brunson, Settle, Chaperon, Koe…)
+  • Conteúdo social / blog / YouTube / WhatsApp → squad content-production
+  • Calendário editorial → squad content-calendar
+  • Branding / posicionamento → squad brand-creation (brand-pool: Al Ries,
+    Alina Wheeler, Byron Sharp, Donald Miller, Emily Heyward…)
+  • Brand voice / narrativa → squad brand-narrative
+  • Rebrand → squad brand-rebrand
+  • Storytelling / pitch → squad story-development (storytelling-pool:
+    Blake Snyder, Dan Harmon, Joseph Campbell, Nancy Duarte, Park Howell,
+    Oren Klaff…)
+  • Review/QC de conteúdo → squad copy-review
+
+  marketing-expert é FALLBACK ESTRATÉGICO — usar APENAS quando:
+    (a) plano estratégico de 90 dias
+    (b) marca pessoal
+    (c) growth experiments / CAC / LTV
+    (d) arquitetura de funil de lançamento
+    (e) tráfego pago 2026 estratégico
+    (f) não há squad cobrindo o caso
+
 📚 BEST-PRACTICES — see core/best-practices/_catalog.yaml (24):
   Discipline: secure-coding | copywriting | researching | review |
               image-design | technical-writing | data-analysis | strategist |

@@ -1,10 +1,19 @@
 ---
 name: marketing-expert
 type: prompt
-version: "1.1.0"
-last_updated: "2026-04-27"
-description: >
-  Suite completa de habilidades para marketing digital, incluindo estratégia digital, copywriting persuasivo, gestão de redes sociais, social selling, funis de lançamento de produtos digitais, growth marketing, branding, marca pessoal e **tráfego pago 2026 (Meta Ads sob Andromeda · Lattice · Muse Spark + Google Ads sob Gemini 3 · Power Pack · ALF/UCP)**. Use este skill sempre que o usuário mencionar: estratégia de marketing, escrever copy, criar posts, vender nas redes sociais, lançar produto digital, crescimento de audiência, identidade de marca, posicionamento pessoal, conteúdo para Instagram/LinkedIn/YouTube, sequência de e-mails, página de vendas, lead magnet, captação de leads, funil de vendas, VSL, webinário, pitch, oferta, proposta de valor, avatar de cliente, persona, tom de voz de marca, storytelling, presença digital, autoridade online, **Meta Ads, Facebook Ads, Instagram Ads, Google Ads, Performance Max, PMax, AI Max, Demand Gen, Power Pack, anúncio pago, tráfego pago, Advantage+ Audience, CBO/ABO, Hook Rate, Hold Rate, Thumbstop, EMQ, CAPI, Event ID, Andromeda, Lattice, Muse Spark, Gemini 3, ALF, UCP, Universal Commerce Protocol, AI Overviews, Enhanced Conversions, Search Themes, Text Guidelines, modelo 3-1-Many, Broad Match com guardrails, segmentação Meta, segmentação Google, escalar campanha, criativo de anúncio, Reels para anúncio, YouTube Shorts**, ou qualquer tarefa relacionada a marketing, vendas digitais e construção de marca. Sempre ative este skill quando houver qualquer dúvida sobre estratégia de comunicação, crescimento digital ou gestão de tráfego pago. Para tráfego pago, **sempre consultar** as best-practices `meta-ads-2026.md`, `creative-direction-meta-2026.md` e `google-ads-2026.md` em `core/best-practices/` (last_updated 2026-04-27).
+version: "1.2.0"
+last_updated: "2026-04-28"
+description: |
+  Lente estratégica de alto nível para marketing digital — 9 personas (Estrategista, Copywriter, Social Media, Social Seller, Funil de Lançamentos, Growth, Branding, Marca Pessoal, Tráfego Pago 2026 Meta+Google). Use ESPECIFICAMENTE para: (a) plano estratégico de 90 dias, (b) marca pessoal, (c) growth experiments / CAC / LTV, (d) arquitetura de funil de lançamento (CPL / carrinho / sequência), (e) tráfego pago 2026 estratégico Meta+Google.
+
+  NÃO use esta skill para produção de copy, conteúdo ou branding quando há squad disponível — invocar squad primeiro:
+  - Copy persuasivo / sales letter / VSL / email / oferta → squad `copy-project` (Copy Chief roteia entre 22 specialists: Halbert, Schwartz, Hopkins, Ogilvy, Sugarman, Kennedy, Kern, Brunson, Settle, Chaperon, Koe…)
+  - Conteúdo social / blog / YouTube / WhatsApp → squad `content-production` ou `content-calendar`
+  - Branding / posicionamento / arquétipo → squad `brand-creation` (brand-pool: Al Ries, Alina Wheeler, Byron Sharp, Donald Miller, Emily Heyward…)
+  - Storytelling / pitch story → squad `story-development` (storytelling-pool: Blake Snyder, Dan Harmon, Joseph Campbell, Nancy Duarte, Park Howell, Oren Klaff…)
+  - Análise/diagnóstico Meta Ads → skill `meta-ads-analyzer` + best-practice `meta-ads-2026`
+
+  Esta skill é **fallback estratégico** para casos sem squad cobrindo o domínio, OU quando o orquestrador precisa de visão de alto nível antes de delegar ao squad. Tráfego pago 2026 (9ª persona) sintetiza Andromeda · Lattice · Muse Spark (Meta) + Gemini 3 · Power Pack · ALF/UCP (Google) — sempre consultar best-practices `meta-ads-2026.md`, `creative-direction-meta-2026.md`, `google-ads-2026.md` (last_updated 2026-04-27).
 ---
 
 # Marketing Expert — Suite Completa

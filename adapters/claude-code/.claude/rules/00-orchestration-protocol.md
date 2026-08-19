@@ -47,42 +47,55 @@ Sempre que o pedido envolver UI, UX ou criação de interfaces:
 
 Sempre que o pedido envolver copy, conteúdo, post social, email, blog, branding, lançamento, anúncio, estratégia de mercado, ou narrativa:
 
-- **OBRIGATÓRIO**: Carregar a best-practice da plataforma/formato específico em [`core/best-practices/`](../best-practices/). Mapeamento:
+### 🎯 Hierarquia obrigatória (squad antes de skill)
 
-| Tipo de pedido | Skill / Squad / Best-practice |
-|---|---|
-| Copy persuasivo, ad, headline, CTA, página de vendas | skill `marketing-expert` + best-practice `copywriting` |
-| Texto em PT-BR (B2B, WhatsApp, social) | **skill `humanizer` no passe final** (reduz cara de IA) |
-| Post Instagram (feed) | best-practice `instagram-feed` + invocar `copy-squad-pool` |
-| Post Instagram (reels) | best-practice `instagram-reels` |
-| Post Instagram (stories) | best-practice `instagram-stories` |
-| Post LinkedIn (curto) | best-practice `linkedin-post` |
-| Artigo LinkedIn | best-practice `linkedin-article` + `technical-writing` |
-| Tweet / X post | best-practice `twitter-post` |
-| Thread Twitter/X | best-practice `twitter-thread` |
-| Roteiro YouTube (long-form) | best-practice `youtube-script` |
-| YouTube Shorts | best-practice `youtube-shorts` |
-| Email newsletter | best-practice `email-newsletter` + skill `resend` para envio |
-| Email vendas / cold outreach | best-practice `email-sales` + skill `resend` |
-| Blog post (conteúdo) | best-practice `blog-post` |
-| Blog post (SEO) | best-practice `blog-seo` |
-| WhatsApp broadcast / mensagem | best-practice `whatsapp-broadcast` + skill `humanizer` |
-| Estratégia de marketing / 90-day plan | skill `marketing-expert` (Estrategista) |
-| Lançamento (CPL, carrinho, sequência) | skill `marketing-expert` (Especialista em Funil) |
-| Growth experiments / CAC / LTV | skill `marketing-expert` (Growth Marketing) + squad `Performance-Ads` |
-| Branding / identidade / posicionamento | `brand-pool` + skill `marketing-expert` (Branding) |
-| Marca pessoal | skill `marketing-expert` (Marca Pessoal) |
-| Storytelling / roteiro narrativo | `storytelling-pool` |
-| Design visual (criativo, banner, carrossel) | skill `design` ou `banner-design` + `design-pool` |
-| Pesquisa / data brief | best-practice `researching` |
-| Review / QC de conteúdo | best-practice `review` |
-| Estratégia editorial / calendário | best-practice `strategist` |
-| Análise de métricas / report | best-practice `data-analysis` |
-| Long-form técnico / documentação | best-practice `technical-writing` |
+**Squad sempre vem antes de skill quando há overlap.** Os pools `copy-squad-pool` (22 copywriters lendários — Halbert, Schwartz, Hopkins, Ogilvy, Sugarman, Kennedy, Kern, Brunson, Settle, Chaperon…), `brand-pool` (Al Ries, Alina Wheeler, Byron Sharp, Donald Miller, Emily Heyward…), `storytelling-pool` (Blake Snyder, Dan Harmon, Joseph Campbell, Nancy Duarte, Park Howell, Oren Klaff…), `content-factory-pool` (calendar-planner, content-chief, content-writer, format-strategist, publisher, video-editor, visual-producer) entregam saída de **profundidade especialista**.
 
-- **OBRIGATÓRIO** para todo texto final em PT-BR: passe da skill `humanizer`.
-- **Publicação** (Instagram, X, etc.): considerar skill `blotato` (multi-plataforma), `instagram-publisher` (carrossel direto), ou `social-networks-publishing` (best-practice).
-- **Templates visuais**: skill `template-designer` quando precisar de identidade visual consistente para a entrega.
+A skill `marketing-expert` é uma **lente estratégica de alto nível** (8 personas + 9ª de Tráfego Pago 2026) — boa para diagnóstico inicial, briefing, plano de 90 dias, ou quando NÃO há squad cobrindo o caso. **NÃO substituir squad por skill** quando há squad disponível — a skill produz copy raso comparada aos especialistas roteados pelo Copy Chief.
+
+**Regra de ouro:**
+
+1. **Há squad/pipeline para o domínio?** → invocar squad (Copy Chief, Content Chief, Brand Chief, Story Chief roteiam para o especialista certo).
+2. **Não há squad?** → skill `marketing-expert` na persona apropriada, com best-practice de plataforma carregada.
+3. **Output em PT-BR?** → SEMPRE `humanizer` no passe final (depois do squad ou skill).
+
+### Mapeamento por tipo de pedido (squad-first)
+
+| Tipo de pedido | **Primário (squad/pipeline)** | Best-practice carregada | Skill complementar |
+|---|---|---|---|
+| Copy persuasivo (ad, headline, CTA, sales letter, VSL, página de vendas, oferta) | **squad `copy-project`** (Copy Chief diagnóstica → roteia entre 22 specialists via `routing_matrix` → produção → `copy-review`) | `copywriting` | `humanizer` (PT-BR) |
+| Email newsletter / sequência / cold outreach | **squad `copy-project`** (Copy Chief → email/relationship specialists: ben-settle, andre-chaperon, dan-koe) | `email-newsletter` ou `email-sales` | `resend` (envio) + `humanizer` |
+| Post Instagram (feed/reels/stories) | **squad `content-production`** (Content Chief → content-writer + visual-producer) | `instagram-{feed,reels,stories}` | `humanizer` (PT-BR) |
+| LinkedIn (post curto) | **squad `content-production`** | `linkedin-post` | `humanizer` |
+| Artigo LinkedIn (long-form) | **squad `content-production`** com on-call em `copy-squad-pool` (technical-writing specialist) | `linkedin-article` + `technical-writing` | `humanizer` |
+| Tweet/X post / thread | **squad `content-production`** | `twitter-post` ou `twitter-thread` | `humanizer` |
+| Roteiro YouTube (long-form) / Shorts | **squad `content-production`** com on-call em `storytelling-pool` (narrativa) | `youtube-script` ou `youtube-shorts` | `humanizer` |
+| Blog post (SEO ou conteúdo) | **squad `content-production`** com on-call em `copy-squad-pool` | `blog-post` ou `blog-seo` | `humanizer` |
+| WhatsApp broadcast/mensagem | **squad `content-production`** | `whatsapp-broadcast` | `humanizer` (mandatório B2B PT-BR) |
+| Calendário editorial mensal/trimestral | **squad `content-calendar`** (Content Chief → format-strategist → calendar-planner) | `strategist` | — |
+| Publicação multi-canal | **squad `content-publish`** (Content Chief → publisher) | `social-networks-publishing` | `blotato` ou `instagram-publisher` |
+| Branding / identidade / posicionamento / arquétipo | **squad `brand-creation`** (Brand Chief → brand-pool: al-ries, alina-wheeler, byron-sharp…) | — | — |
+| Brand voice / narrativa de marca | **squad `brand-narrative`** | — | — |
+| Rebrand / reposicionamento | **squad `brand-rebrand`** | — | — |
+| Storytelling / roteiro narrativo / pitch story | **squad `story-development`** com `storytelling-pool` (Blake Snyder, Dan Harmon, Joseph Campbell, Nancy Duarte, Park Howell, Oren Klaff) | — | `humanizer` |
+| Review / QC de conteúdo produzido | **squad `copy-review`** | `review` | — |
+| Lançamento completo (CPL, carrinho, sequência) | **squad `copy-project`** (sequência) + `traffic-launch` (ads) | `email-sales` + `copywriting` | `marketing-expert` (Especialista em Funil) para arquitetura |
+| Estratégia de marketing / 90-day plan | skill `marketing-expert` (Estrategista) — **fallback estratégico, não há squad** | `strategist` | — |
+| Marca pessoal | skill `marketing-expert` (Marca Pessoal) — **fallback** | — | `humanizer` |
+| Growth experiments / CAC / LTV | skill `marketing-expert` (Growth) + squad `traffic-analytics` | `data-analysis` | — |
+| Pesquisa / data brief / persona | best-practice `audience-research` (preferida) ou `researching` | — | — |
+| Análise de métricas / report | best-practice `data-analysis` (+ squad `traffic-analytics` se for ads) | — | — |
+| Long-form técnico / documentação | best-practice `technical-writing` | — | — |
+| Design visual (criativo, banner, carrossel) | squad `design-system-creation` ou `design-pool` | `image-design` | `template-designer`, `image-creator`, `canvas-design` |
+
+### Regras inegociáveis desta seção
+
+1. **Squad vem antes de skill** — se a tabela acima lista um squad como **Primário**, invocar o squad. Não pular pra skill `marketing-expert`. Se em dúvida, declarar "Não tenho certeza qual squad — vou diagnosticar via Copy Chief / Content Chief / Brand Chief / Story Chief antes de escrever".
+2. **Best-practice da plataforma SEMPRE carregada** quando aplicável (`instagram-feed`, `email-sales`, `linkedin-post`, etc.) — independente de qual squad/skill esteja produzindo.
+3. **OBRIGATÓRIO** para todo texto final em PT-BR: passe da skill `humanizer` (depois do squad/skill terminar a produção).
+4. **Publicação** (Instagram, X, etc.): considerar skill `blotato` (multi-plataforma), `instagram-publisher` (carrossel direto), ou squad `content-publish`.
+5. **Templates visuais**: skill `template-designer` quando precisar de identidade visual consistente para a entrega.
+6. **Quando legitimamente usar `marketing-expert`**: a tabela acima destaca os casos — (a) estratégia de 90 dias, (b) marca pessoal, (c) growth experiments, (d) arquitetura de funil de lançamento, (e) quando não há squad cobrindo o domínio. Em todos os outros casos, **squad primeiro**.
 
 ## 📈 Diretivas Específicas: Tráfego Pago
 
